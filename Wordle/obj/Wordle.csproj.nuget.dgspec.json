@@ -4,14 +4,14 @@
     "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
+    "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
+        "projectUniqueName": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
         "projectName": "Contracts",
-        "projectPath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
+        "projectPath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
         "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Wordle\\Contracts\\obj\\",
+        "outputPath": "d:\\Projects\\Wordle\\Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -98,6 +98,18 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -142,8 +154,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
-                "projectPath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
+              "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
+                "projectPath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
               },
               "D:\\Projects\\Wordle\\Entities\\Entities.csproj": {
                 "projectPath": "D:\\Projects\\Wordle\\Entities\\Entities.csproj"
@@ -204,8 +216,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
-                "projectPath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
+              "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
+                "projectPath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
               },
               "D:\\Projects\\Wordle\\Services\\Services.csproj": {
                 "projectPath": "D:\\Projects\\Wordle\\Services\\Services.csproj"
@@ -226,6 +238,12 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
