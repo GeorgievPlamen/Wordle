@@ -38,7 +38,7 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value;
-                    _cache.Set("WordEn", output, TimeSpan.FromMinutes(1));
+                    _cache.Set("WordEn", output, TimeSpan.FromSeconds(10));
                 }
             }
             else if (language == Language.Bulgarian)
@@ -54,7 +54,10 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value;
-                    _cache.Set("WordBg", output, TimeSpan.FromMinutes(1));
+                    //Calculates remaining time of the day
+                    //Gets tommorow and subtracts current time
+                    var endOfDay = DateTime.Today.AddDays(1).Subtract(DateTime.Now);
+                    _cache.Set("WordBg", output, endOfDay);
                 }
             }
             if (output == null) throw new ArgumentNullException("Can't get a word from DB or Cache");
