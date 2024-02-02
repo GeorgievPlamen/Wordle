@@ -18,7 +18,7 @@ namespace Wordle.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("En")]
         public async Task<IActionResult> GetWord()
         {
             string word = await _wordService.GetWord(Language.English);
