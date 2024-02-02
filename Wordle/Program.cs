@@ -16,6 +16,7 @@ builder.Services.AddDbContext<WordleDbContext>(options =>
     }
 );
 builder.Services.AddScoped<IWordService, WordService>();
+builder.Services.AddScoped<IWordChecker, WordCheckerService>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();

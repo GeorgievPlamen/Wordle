@@ -9,12 +9,15 @@ namespace Wordle.Controllers
     {
         private readonly ILogger<WordController> _logger;
         private readonly IWordService _wordService;
+        private readonly IWordChecker _wordChecker;
 
         public WordController(
             ILogger<WordController> logger,
-            IWordService wordService)
+            IWordService wordService,
+            IWordChecker wordChecker)
         {
             _wordService = wordService;
+            _wordChecker = wordChecker;
             _logger = logger;
         }
 
@@ -30,6 +33,14 @@ namespace Wordle.Controllers
         {
             string word = await _wordService.GetWord(Language.Bulgarian);
             return Ok(word);
+        }
+
+        [HttpGet("Check/{word}")]
+        public async Task<IActionResult> CheckWord(string word)
+        {
+            string wordToCheck = await _wordService.GetWord(Language.English);
+            var result = _wordChecker.CheckWord(wordToCheck, word);
+            return Ok(result);
         }
     }
 }
