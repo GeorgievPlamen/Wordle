@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "M14hRKG4Lx1Nh8l5epgw6jSTdgP7woRr/uyPi8x6X7aH0p569W3vHsJKfvNoM+2YITjmgapVeF+V6+Va6MHLyQ==",
+  "dgSpecHash": "rcUQZq1rUeoTU0mzBP9CR1qodXaaVcSZpiGs3GQdN8ABTf4SkrwK72cIxOc1XUFNplp2NanOLBqikF15Gb6dog==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+  "projectFilePath": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GRIGS\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",

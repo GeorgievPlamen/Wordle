@@ -1,6 +1,8 @@
+using Contracts;
 using Entities;
 using Entities.DBInit;
 using Microsoft.EntityFrameworkCore;
+using Services.Words;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<WordleDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 );
+builder.Services.AddScoped<IWordService, WordService>();
 
 var app = builder.Build();
 
@@ -38,7 +41,6 @@ try
 catch (Exception ex)
 {
     logger.LogError(ex, "A problem occured during migration");
-    throw;
 }
 
 
