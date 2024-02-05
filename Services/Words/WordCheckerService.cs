@@ -1,6 +1,7 @@
 using Contracts;
 using Contracts.DTOs;
 using Contracts.Params;
+using Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Services.Words
@@ -8,7 +9,8 @@ namespace Services.Words
     public class WordCheckerService : IWordChecker
     {
         private readonly ILogger<WordCheckerService> _logger;
-        public WordCheckerService(ILogger<WordCheckerService> logger)
+        public WordCheckerService(
+            ILogger<WordCheckerService> logger)
         {
             _logger = logger;
         }

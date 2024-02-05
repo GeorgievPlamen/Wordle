@@ -12,14 +12,17 @@ namespace Wordle.Controllers
         private readonly ILogger<WordController> _logger;
         private readonly IWordService _wordService;
         private readonly IWordChecker _wordChecker;
+        private readonly IWordValid _wordValid;
 
         public WordController(
             ILogger<WordController> logger,
             IWordService wordService,
-            IWordChecker wordChecker)
+            IWordChecker wordChecker,
+            IWordValid wordValid)
         {
             _wordService = wordService;
             _wordChecker = wordChecker;
+            _wordValid = wordValid;
             _logger = logger;
         }
 
@@ -40,6 +43,11 @@ namespace Wordle.Controllers
         [HttpGet("En/{word}")]
         public async Task<IActionResult> CheckWord(string word)
         {
+            if (!_wordValid.IsValid(word, false))
+            {
+                return BadRequest("Word is not valid");
+            }
+
             if (Request.Cookies.TryGetValue("guesses", out string? guesses))
             {
                 if (Convert.ToInt32(guesses) == 6)
@@ -68,6 +76,11 @@ namespace Wordle.Controllers
         [HttpGet("Bg/{word}")]
         public async Task<IActionResult> CheckWordBg(string word)
         {
+            if (!_wordValid.IsValid(word, true))
+            {
+                return BadRequest("Word is not valid");
+            }
+
             if (Request.Cookies.TryGetValue("guessesBg", out string? guesses))
             {
                 if (Convert.ToInt32(guesses) == 6)
