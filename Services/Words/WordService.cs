@@ -38,7 +38,7 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value.ToUpper();
-                    _cache.Set("WordEn", output, TimeSpan.FromSeconds(30));
+                    _cache.Set("WordEn", output, TimeSpan.FromMinutes(1));
                 }
             }
             else if (language == Language.Bulgarian)

@@ -47,7 +47,7 @@ namespace Wordle.Controllers
         [HttpGet("En/{word}")]
         public async Task<IActionResult> CheckWord(string word)
         {
-            if (!_wordValid.IsValid(word, false))
+            if (!_wordValid.IsValid(word.ToUpper(), false))
             {
                 return BadRequest("Word is not valid");
             }
