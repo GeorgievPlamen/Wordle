@@ -1779,11 +1779,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+      "projectUniqueName": "d:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
       "projectName": "Wordle",
-      "projectPath": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+      "projectPath": "d:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
       "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Wordle\\Wordle\\obj\\",
+      "outputPath": "d:\\Projects\\Wordle\\Wordle\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1800,11 +1800,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
-              "projectPath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
+            "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
+              "projectPath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj"
             },
-            "D:\\Projects\\Wordle\\Services\\Services.csproj": {
-              "projectPath": "D:\\Projects\\Wordle\\Services\\Services.csproj"
+            "d:\\Projects\\Wordle\\Services\\Services.csproj": {
+              "projectPath": "d:\\Projects\\Wordle\\Services\\Services.csproj"
             }
           }
         }

@@ -1178,8 +1178,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Projects\\Wordle\\Entities\\Entities.csproj": {
-              "projectPath": "D:\\Projects\\Wordle\\Entities\\Entities.csproj"
+            "d:\\Projects\\Wordle\\Entities\\Entities.csproj": {
+              "projectPath": "d:\\Projects\\Wordle\\Entities\\Entities.csproj"
             }
           }
         }

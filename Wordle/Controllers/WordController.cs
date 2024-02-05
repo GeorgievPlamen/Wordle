@@ -39,7 +39,7 @@ namespace Wordle.Controllers
         public async Task<IActionResult> CheckWord(string word)
         {
             string wordToCheck = await _wordService.GetWord(Language.English);
-            var result = _wordChecker.CheckWord(wordToCheck, word);
+            var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
             return Ok(result);
         }
     }

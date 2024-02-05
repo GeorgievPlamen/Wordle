@@ -38,7 +38,7 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value.ToUpper();
-                    _cache.Set("WordEn", output, TimeSpan.FromSeconds(10));
+                    _cache.Set("WordEn", output, TimeSpan.FromMinutes(2));
                 }
             }
             else if (language == Language.Bulgarian)
@@ -56,7 +56,6 @@ namespace Services.Words
                     output = result.Value;
                     //Calculates remaining time of the day
                     //Gets tommorow and subtracts current time
-                    //ПЯСЪК 02.02
                     var endOfDay = DateTime.Today.AddDays(1).Subtract(DateTime.Now);
                     _cache.Set("WordBg", output, endOfDay);
                 }

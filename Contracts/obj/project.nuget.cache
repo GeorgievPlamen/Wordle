@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ng6i1aCcUK7NWZoJkb6NmFicm7wKeRi/OAIdl3Ua6P0R4Mx1XNJVpuz7CRRjo+2ZJTT3QzTsYYVcRmTkL35Y8Q==",
+  "dgSpecHash": "lopsoISaeUXcpHDAXHI1EtZte5fANLlLUADaIRvZtkHvJeAHgIlGcvi1js43sqqAK1Ho6BIvXj3N3DxpKOdkWg==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
+  "projectFilePath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.0\\microsoft.data.sqlite.core.7.0.0.nupkg.sha512",
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0\\microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
