@@ -1,9 +1,7 @@
-using System.Text;
 using Contracts;
 using Contracts.DTOs;
 using Contracts.Params;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Wordle.Controllers.Base;
 
 namespace Wordle.Controllers
@@ -139,12 +137,12 @@ namespace Wordle.Controllers
             if (bulgarian)
             {
                 await _successfullGuess.SuccessfullGuess(userId, attempt, true);
-                Response.Cookies.Append("guessedCorrectlyBg", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(30) });
+                Response.Cookies.Append("guessedCorrectlyBg", "yes", new CookieOptions { Expires = DateTime.Today.AddDays(1) });
             }
             else
             {
                 await _successfullGuess.SuccessfullGuess(userId, attempt, false);
-                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(30) });
+                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(120) });
             }
         }
         private static string PrepWord(WordDTO? result, string usedWord)
