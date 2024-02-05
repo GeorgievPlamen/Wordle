@@ -2,6 +2,7 @@ using Contracts;
 using Entities;
 using Entities.DBInit;
 using Microsoft.EntityFrameworkCore;
+using Services.Guesses;
 using Services.Words;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<WordleDbContext>(options =>
 builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddScoped<IWordChecker, WordCheckerService>();
 builder.Services.AddScoped<IWordValid, WordValidService>();
+builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();

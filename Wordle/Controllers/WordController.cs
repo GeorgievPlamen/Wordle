@@ -1,5 +1,6 @@
 using System.Text;
 using Contracts;
+using Contracts.DTOs;
 using Contracts.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,17 +14,20 @@ namespace Wordle.Controllers
         private readonly IWordService _wordService;
         private readonly IWordChecker _wordChecker;
         private readonly IWordValid _wordValid;
+        private readonly ISuccessfullGuess _successfullGuess;
 
         public WordController(
             ILogger<WordController> logger,
             IWordService wordService,
             IWordChecker wordChecker,
-            IWordValid wordValid)
+            IWordValid wordValid,
+            ISuccessfullGuess successfullGuess)
         {
             _wordService = wordService;
             _wordChecker = wordChecker;
             _wordValid = wordValid;
             _logger = logger;
+            _successfullGuess = successfullGuess;
         }
 
         [HttpGet("En")]
@@ -56,20 +60,29 @@ namespace Wordle.Controllers
                 }
             }
 
+            if (Request.Cookies.ContainsKey("guessedCorrectly"))
+            {
+                return BadRequest("You have already guessed this word");
+            }
+
             string wordToCheck = await _wordService.GetWord(Language.English);
             var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
 
+            //Prep for cookies
             string usedWord = "";
 
-            if (result != null && result.Letters != null)
-            {
-                foreach (char c in result.Letters)
-                {
-                    usedWord += c;
-                }
-            }
+            usedWord = PrepWord(result, usedWord);
 
             HandleGuessesCookie(guesses, usedWord);
+
+            //Correct
+            if (result != null && result.Values != null &&
+            result.Values.All(x => x == 0))
+            {
+                await HandleCorrect(guesses, false);
+                return Ok();
+            }
+
             return Ok(result);
         }
 
@@ -89,11 +102,53 @@ namespace Wordle.Controllers
                 }
             }
 
+            if (Request.Cookies.ContainsKey("guessedCorrectlyBg"))
+            {
+                return BadRequest("You have already guessed this word");
+            }
+
             string wordToCheck = await _wordService.GetWord(Language.Bulgarian);
             var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
 
             string usedWord = "";
 
+            usedWord = PrepWord(result, usedWord);
+
+            HandleGuessesCookie(guesses, usedWord, true);
+
+            if (result != null && result.Values != null &&
+            result.Values.All(x => x == 0))
+            {
+                await HandleCorrect(guesses, true);
+                return Ok();
+            }
+
+            return Ok(result);
+        }
+
+        private async Task HandleCorrect(string? guesses, bool bulgarian)
+        {
+            if (!Request.Cookies.TryGetValue("userId", out string? userId))
+            {
+                userId = Guid.NewGuid().ToString();
+                Response.Cookies.Append("userId", userId, new CookieOptions { Expires = DateTime.Now.AddDays(30) });
+            }
+
+            int attempt = Convert.ToInt32(guesses) + 1;
+
+            if (bulgarian)
+            {
+                await _successfullGuess.SuccessfullGuess(userId, attempt, true);
+                Response.Cookies.Append("guessedCorrectlyBg", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(30) });
+            }
+            else
+            {
+                await _successfullGuess.SuccessfullGuess(userId, attempt, false);
+                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(30) });
+            }
+        }
+        private static string PrepWord(WordDTO? result, string usedWord)
+        {
             if (result != null && result.Letters != null)
             {
                 foreach (char c in result.Letters)
@@ -102,10 +157,8 @@ namespace Wordle.Controllers
                 }
             }
 
-            HandleGuessesCookie(guesses, usedWord, true);
-            return Ok(result);
+            return usedWord;
         }
-
         private void HandleGuessesCookie(string? guesses, string? usedWord, bool Bulgarian = false)
         {
             var cookieOpt = new CookieOptions { Expires = DateTime.Today.AddDays(1) };

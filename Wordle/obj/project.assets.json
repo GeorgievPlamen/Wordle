@@ -1779,11 +1779,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+      "projectUniqueName": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
       "projectName": "Wordle",
-      "projectPath": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+      "projectPath": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
       "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Wordle\\Wordle\\obj\\",
+      "outputPath": "D:\\Projects\\Wordle\\wordle\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",

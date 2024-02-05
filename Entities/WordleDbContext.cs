@@ -16,5 +16,6 @@ namespace Entities
 
         public DbSet<WordBg> WordsBg { get; set; }
         public DbSet<WordEn> WordsEn { get; set; }
+        public DbSet<GuessesEn> GuessesEn { get; set; }
     }
 }

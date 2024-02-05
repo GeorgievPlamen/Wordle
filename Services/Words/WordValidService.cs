@@ -31,6 +31,7 @@ namespace Services.Words
                 return _context.WordsBg.Any(x => x.Value == word.ToUpper());
             }
 
+            _logger.LogWarning("Word validation service failed");
             return false;
         }
     }
