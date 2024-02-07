@@ -9,6 +9,7 @@ export default function LettersGrid() {
       display={"flex"}
       flexDirection={"column"}
       rowGap={"5px"}
+      maxHeight={{ xs: "500px" }}
     >
       <LettersRow first="p" second="a" third="r" fourth="t" fifth="y" />
       <LettersRow />

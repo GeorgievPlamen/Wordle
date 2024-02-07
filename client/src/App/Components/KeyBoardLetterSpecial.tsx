@@ -16,7 +16,9 @@ export default function KeyBoardLetterSpecial({ enter }: Props) {
           "&:active": {
             color: "#555",
           },
-          minWidth: "37.5px",
+          margin: "10px 2px",
+          padding: "0px",
+          minWidth: "30.5px",
           minHeight: "55px",
           width: "10vh",
           height: "12vh",

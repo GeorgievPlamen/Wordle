@@ -5,7 +5,7 @@ interface Props {
 }
 export default function KeyBoardLetter({ letter }: Props) {
   return (
-    <Box width={"100%"} height={"100%"}>
+    <Box>
       <Button
         sx={{
           "&:hover": {
@@ -14,9 +14,11 @@ export default function KeyBoardLetter({ letter }: Props) {
           "&:active": {
             color: "#555",
           },
+          margin: "10px 2px",
+          padding: "0px",
           minWidth: "27.5px",
           minHeight: "46px",
-          width: "inherit",
+          width: "8vw",
           height: "100%",
           maxWidth: "43px",
           maxHeight: "58px",
@@ -24,7 +26,7 @@ export default function KeyBoardLetter({ letter }: Props) {
         variant={"contained"}
         color="secondary"
       >
-        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+        <Typography padding={"0px"} variant="h5" sx={{ fontWeight: "bold" }}>
           {letter}
         </Typography>
       </Button>

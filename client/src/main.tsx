@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "./styles.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -9,6 +8,7 @@ import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, createTheme } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./styles.css";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +35,16 @@ const theme = createTheme({
     text: {
       primary: "#000",
       secondary: "#fdfdfd",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: "23px",
+          minHeight: "58px",
+        },
+      },
     },
   },
 });

@@ -5,20 +5,12 @@ import KeyBoardLetterSpecial from "./KeyBoardLetterSpecial";
 export default function KeyBoardEn() {
   return (
     <Box
-      display={"flex"}
       flexDirection={"column"}
-      gap={"5px"}
-      maxHeight={"200px"}
+      margin={"auto"}
+      width={"100%"}
       maxWidth={"484px"}
-      width={"80vw"}
-      height={"100vh"}
     >
-      <Box
-        display={"flex"}
-        width={"100%"}
-        gap={"5px"}
-        justifyContent={"space-evenly"}
-      >
+      <Box display={"flex"} justifyContent={"space-evenly"} width={"100%"}>
         <KeyBoardLetter letter="q" />
         <KeyBoardLetter letter="w" />
         <KeyBoardLetter letter="e" />
@@ -30,7 +22,7 @@ export default function KeyBoardEn() {
         <KeyBoardLetter letter="o" />
         <KeyBoardLetter letter="p" />
       </Box>
-      <Box display={"flex"} gap={"5px"} justifyContent={"space-evenly"}>
+      <Box display={"flex"} justifyContent={"space-evenly"}>
         <KeyBoardLetter letter="a" />
         <KeyBoardLetter letter="s" />
         <KeyBoardLetter letter="d" />
@@ -41,7 +33,7 @@ export default function KeyBoardEn() {
         <KeyBoardLetter letter="k" />
         <KeyBoardLetter letter="l" />
       </Box>
-      <Box display={"flex"} gap={"5px"} justifyContent={"space-evenly"}>
+      <Box display={"flex"} justifyContent={"space-evenly"}>
         <KeyBoardLetterSpecial enter="enter" />
         <KeyBoardLetter letter="z" />
         <KeyBoardLetter letter="x" />
