@@ -20,6 +20,7 @@ builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddScoped<IWordChecker, WordCheckerService>();
 builder.Services.AddScoped<IWordValid, WordValidService>();
 builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
+builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();

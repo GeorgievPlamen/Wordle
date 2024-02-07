@@ -76,7 +76,7 @@ namespace Services.Guesses
                 }
 
 
-                _context.GuessesEn.Add(guessTemp);
+                await _context.GuessesEn.AddAsync(guessTemp);
                 await _context.SaveChangesAsync();
             }
 

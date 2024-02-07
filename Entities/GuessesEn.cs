@@ -22,5 +22,7 @@ namespace Entities
         public int FourthBg { get; set; }
         public int FifthBg { get; set; }
         public int SixthBg { get; set; }
+        public int FailedEn { get; set; }
+        public int FailedBg { get; set; }
     }
 }
