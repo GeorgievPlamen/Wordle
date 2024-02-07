@@ -8,6 +8,10 @@ export default function TestGetWord() {
   const handleGetWord = async () => {
     await agent.Word.enWord().then((data) => setEnWord(data));
   };
+
+  const handleCheckWord = async () => {
+    await agent.Word.checkEnWord(enWord).then((data) => console.log(data));
+  };
   return (
     <Box
       height={"100px"}
@@ -19,6 +23,7 @@ export default function TestGetWord() {
         {enWord}
       </Typography>
       <Button onClick={handleGetWord}>Get Word</Button>
+      <Button onClick={handleCheckWord}>Check Word</Button>
     </Box>
   );
 }

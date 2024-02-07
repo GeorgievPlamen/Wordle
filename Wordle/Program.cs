@@ -35,10 +35,10 @@ if (app.Environment.IsDevelopment())
 app.UseCors(options =>
 {
     options
+        .WithOrigins("http://localhost:3000")
         .AllowAnyHeader()
         .AllowAnyMethod()
-        .AllowCredentials()
-        .WithOrigins("http://localhost:3000");
+        .AllowCredentials();
 });
 
 app.UseAuthorization();

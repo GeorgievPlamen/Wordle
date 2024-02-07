@@ -1,20 +1,28 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import "./styles.css";
 import TestGetWord from "./App/Components/TestGetWord";
+import LettersGrid from "./App/Components/LettersGrid";
+import KeyBoardEn from "./App/Components/KeyBoardEn";
 
 function App() {
   return (
     <>
       <Box
         display={"flex"}
-        width={"100vw"}
-        height={"100vh"}
         margin={"auto"}
         flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <h1>Hello World</h1>
+        <Typography
+          variant="h2"
+          sx={{ fontWeight: "bold" }}
+          color={"textPrimary"}
+        >
+          Hello World
+        </Typography>
+        <LettersGrid />
+        <KeyBoardEn />
         <TestGetWord />
       </Box>
     </>

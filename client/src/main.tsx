@@ -29,23 +29,12 @@ const theme = createTheme({
       contrastText: "#f0f0f0",
     },
     secondary: {
-      main: "#45567d",
-      contrastText: "#f0f0f0",
+      main: "#d3d6da",
+      contrastText: "#000",
     },
     text: {
       primary: "#000",
-      secondary: "#be3144",
-    },
-  },
-  components: {
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          "::before": {
-            display: "none",
-          },
-        },
-      },
+      secondary: "#fdfdfd",
     },
   },
 });

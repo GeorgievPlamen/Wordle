@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 const sleep = () => new Promise (resolve => setTimeout(resolve,500));
 
 axios.defaults.baseURL = "http://localhost:5000/";
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -17,11 +17,12 @@ const requests = {
 }
 
 const Word = {
-    enWord: () => requests.get("Word/En")
+    enWord: () => requests.get("Word/En"),
+    checkEnWord: (word: string) => requests.get("Word/En/" + word)
 }
 
 const agent = {
-    Word
+    Word,
 }
 
 export default agent;
