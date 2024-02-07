@@ -1,10 +1,59 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./styles.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline, createTheme } from "@mui/material";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [{ path: "", element: <App /> }],
+  },
+]);
+
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "whitesmoke",
+      // #3a3d40
+    },
+    primary: {
+      main: "#be3144",
+      contrastText: "#f0f0f0",
+    },
+    secondary: {
+      main: "#45567d",
+      contrastText: "#f0f0f0",
+    },
+    text: {
+      primary: "#000",
+      secondary: "#be3144",
+    },
+  },
+  components: {
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          "::before": {
+            display: "none",
+          },
+        },
+      },
+    },
+  },
+});
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </React.StrictMode>
+);
