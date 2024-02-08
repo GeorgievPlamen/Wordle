@@ -9,10 +9,9 @@ import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, createTheme } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles.css";
-import { configureStore } from "./App/Store/configureStore.ts";
-import { Provider } from "react-redux";
 
-const store = configureStore();
+import { Provider } from "react-redux";
+import { store } from "./App/Store/configureStore.ts";
 
 const router = createBrowserRouter([
   {

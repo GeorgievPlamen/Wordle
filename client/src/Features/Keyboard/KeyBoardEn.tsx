@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import KeyBoardLetter from "../../App/Components/KeyBoardLetter";
-import KeyBoardLetterSpecial from "../../App/Components/KeyBoardLetterSpecial";
+import KeyBoardLetterSpecial from "../../App/Components/KeyBoardLetterDelete";
+import KeyBoardLetterEnter from "../../App/Components/KeyBoardLetterEnter";
 
 export default function KeyBoardEn() {
   return (
@@ -34,7 +35,7 @@ export default function KeyBoardEn() {
         <KeyBoardLetter letter="l" />
       </Box>
       <Box display={"flex"} justifyContent={"space-evenly"}>
-        <KeyBoardLetterSpecial enter="enter" />
+        <KeyBoardLetterEnter />
         <KeyBoardLetter letter="z" />
         <KeyBoardLetter letter="x" />
         <KeyBoardLetter letter="c" />

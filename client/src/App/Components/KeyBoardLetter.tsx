@@ -1,12 +1,16 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useAppDispatch } from "../Store/configureStore";
+import { addLetter } from "../../Features/Keyboard/wordSlice";
 
 interface Props {
   letter: string;
 }
 export default function KeyBoardLetter({ letter }: Props) {
+  const dispatch = useAppDispatch();
   return (
     <Box>
       <Button
+        onClick={() => dispatch(addLetter(letter))}
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

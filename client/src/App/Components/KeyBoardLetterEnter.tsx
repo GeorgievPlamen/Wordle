@@ -1,11 +1,6 @@
-import { Box, Button, Icon, Typography } from "@mui/material";
-import BackspaceIcon from "@mui/icons-material/Backspace";
+import { Box, Button, Typography } from "@mui/material";
 
-interface Props {
-  enter?: string;
-}
-
-export default function KeyBoardLetterSpecial({ enter }: Props) {
+export default function KeyBoardLetterEnter() {
   return (
     <Box>
       <Button
@@ -28,10 +23,7 @@ export default function KeyBoardLetterSpecial({ enter }: Props) {
         variant={"contained"}
         color="secondary"
       >
-        {!enter && <Icon component={BackspaceIcon} />}
-        {enter && (
-          <Typography sx={{ fontWeight: "bolder" }}>{enter}</Typography>
-        )}
+        <Typography sx={{ fontWeight: "bolder" }}>ENTER</Typography>
       </Button>
     </Box>
   );
