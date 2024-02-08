@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import KeyBoardLetter from "./KeyBoardLetter";
-import KeyBoardLetterSpecial from "./KeyBoardLetterSpecial";
+import KeyBoardLetter from "../../App/Components/KeyBoardLetter";
+import KeyBoardLetterSpecial from "../../App/Components/KeyBoardLetterSpecial";
 
 export default function KeyBoardEn() {
   return (

@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import "./styles.css";
 import TestGetWord from "./App/Components/TestGetWord";
-import LettersGrid from "./App/Components/LettersGrid";
-import KeyBoardEn from "./App/Components/KeyBoardEn";
+import LettersGrid from "./Features/LettersGrid/LettersGrid";
+import KeyBoardEn from "./Features/Keyboard/KeyBoardEn";
 
 function App() {
   return (

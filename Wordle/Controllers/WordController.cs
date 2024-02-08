@@ -60,16 +60,16 @@ namespace Wordle.Controllers
 
             if (Request.Cookies.TryGetValue("guesses", out string? guesses))
             {
-                if (Convert.ToInt32(guesses) == 6)
-                {
-                    return BadRequest("Already at max guesses");
-                }
+                // if (Convert.ToInt32(guesses) == 6)
+                // {
+                    // return BadRequest("Already at max guesses");
+                // }
             }
 
-            if (Request.Cookies.ContainsKey("guessedCorrectly"))
-            {
-                return BadRequest("You have already guessed this word");
-            }
+            // if (Request.Cookies.ContainsKey("guessedCorrectly"))
+            // {
+            //     return BadRequest("You have already guessed this word");
+            // }
 
             string wordToCheck = await _wordService.GetWord(Language.English);
             var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
@@ -158,7 +158,7 @@ namespace Wordle.Controllers
             else
             {
                 await _successfullGuess.SuccessfullGuess(userId, attempt, false);
-                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(120) });
+                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(60) });
             }
         }
         private static string PrepWord(WordDTO? result, string usedWord)

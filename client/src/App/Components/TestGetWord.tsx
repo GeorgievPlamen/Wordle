@@ -10,7 +10,11 @@ export default function TestGetWord() {
   };
 
   const handleCheckWord = async () => {
-    await agent.Word.checkEnWord(enWord).then((data) => console.log(data));
+    await agent.Word.checkEnWord(enWord).then((data) => {
+      console.log(data);
+      console.log(data.letters);
+      console.log(data.values);
+    });
   };
   return (
     <Box
