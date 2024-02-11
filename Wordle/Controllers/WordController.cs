@@ -91,7 +91,7 @@ namespace Wordle.Controllers
 
             await _wordAttempt.AddWordAttempt(userId, usedWord, false);
 
-            HandleGuessesCookie(guesses, usedWord, userId);
+            HandleGuessesCookie(guesses, userId);
 
             //Correct
             if (result != null && result.Values != null &&
@@ -141,7 +141,7 @@ namespace Wordle.Controllers
 
             await _wordAttempt.AddWordAttempt(userId, usedWord, true);
 
-            HandleGuessesCookie(guesses, usedWord, userId, true);
+            HandleGuessesCookie(guesses, userId, true);
 
             if (result != null && result.Values != null &&
             result.Values.All(x => x == 0))
@@ -187,7 +187,7 @@ namespace Wordle.Controllers
 
             return usedWord;
         }
-        private void HandleGuessesCookie(string? guesses, string? usedWord, string userId, bool Bulgarian = false)
+        private void HandleGuessesCookie(string? guesses, string userId, bool Bulgarian = false)
         {
             var cookieOpt = new CookieOptions { Expires = DateTime.Today.AddDays(1) };
             if (!Request.Cookies.ContainsKey("guesses") || !Request.Cookies.ContainsKey("guessesBg"))

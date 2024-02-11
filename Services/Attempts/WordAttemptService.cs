@@ -20,9 +20,18 @@ namespace Services.Attempts
         }
         public async Task<bool> AddWordAttempt(string userId, string word, bool bulgarian)
         {
-            GuessesToday guess = await _context.GuessesToday
-                .FirstOrDefaultAsync(x => x.UserId == userId)
-                ?? new GuessesToday { UserId = userId };
+            GuessesToday guess;
+            GuessesToday? currentUser = await _context.GuessesToday
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+            if (currentUser == null)
+            {
+                guess = new GuessesToday { UserId = userId };
+                await _context.AddAsync(guess);
+            }
+            else
+            {
+                guess = currentUser;
+            }
 
             if (bulgarian)
             {
@@ -74,6 +83,7 @@ namespace Services.Attempts
                         break;
                 }
             }
+
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -96,13 +106,13 @@ namespace Services.Attempts
             attempts.FirstGuess = userAttempts.FirstGuess;
             attempts.SecondGuess = userAttempts.SecondGuess;
             attempts.ThirdGuess = userAttempts.ThirdGuess;
-            attempts.FirstGuess = userAttempts.FourthGuess;
+            attempts.FourthGuess = userAttempts.FourthGuess;
             attempts.FifthGuess = userAttempts.FifthGuess;
             attempts.SixthGuess = userAttempts.SixthGuess;
             attempts.FirstGuessBg = userAttempts.FirstGuessBg;
             attempts.SecondGuessBg = userAttempts.SecondGuessBg;
             attempts.ThirdGuessBg = userAttempts.ThirdGuessBg;
-            attempts.FirstGuessBg = userAttempts.FourthGuessBg;
+            attempts.FourthGuess = userAttempts.FourthGuessBg;
             attempts.FifthGuessBg = userAttempts.FifthGuessBg;
             attempts.SixthGuessBg = userAttempts.SixthGuessBg;
         }
