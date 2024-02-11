@@ -21,6 +21,7 @@ const Word = {
     checkEnWord: (word: string) => requests.get("Word/En/" + word)
 }
 
+
 const agent = {
     Word,
 }

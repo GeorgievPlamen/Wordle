@@ -3,8 +3,20 @@ import "./styles.css";
 import TestGetWord from "./App/Components/TestGetWord";
 import LettersGrid from "./Features/LettersGrid/LettersGrid";
 import KeyBoardEn from "./Features/Keyboard/KeyBoardEn";
+import { useAppSelector } from "./App/Store/configureStore";
+import { useEffect } from "react";
 
 function App() {
+  const words = useAppSelector((state) => state.word);
+  const game = words.completed;
+
+  useEffect(() => {
+    if (game === true) {
+      setTimeout(() => {
+        alert("Splendid!");
+      }, 2000);
+    }
+  }, [game]);
   return (
     <>
       <Box

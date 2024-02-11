@@ -1,13 +1,31 @@
 import { Box, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
 
 interface Props {
   letter?: string;
+  letterValue?: number;
 }
 
-export default function LetterContainer({ letter }: Props) {
+export default function LetterContainer({ letter, letterValue }: Props) {
+  const [backgroundColor, setBackgroundColor] = useState("");
+  const handleBackgroundColorChange = (color: string) => {
+    setBackgroundColor(color);
+  };
+  useEffect(() => {
+    if (letterValue === 2) {
+      handleBackgroundColorChange("#787c7e");
+    }
+    if (letterValue === 1) {
+      handleBackgroundColorChange("#c9b458");
+    }
+    if (letterValue === 0) {
+      handleBackgroundColorChange("#6aaa64");
+    }
+  }, [letterValue]);
+  
   return (
     <Box
-      sx={{ backgroundColor: "#whitesmoke" }}
+      sx={{ backgroundColor }}
       height={"8vh"}
       width={"8vh"}
       minHeight={"42px"}

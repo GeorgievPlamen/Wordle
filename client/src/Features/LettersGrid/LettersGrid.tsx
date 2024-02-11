@@ -19,6 +19,11 @@ export default function LettersGrid() {
         third={words[0].letters[2]}
         fourth={words[0].letters[3]}
         fifth={words[0].letters[4]}
+        firstValue={words[0].values[0]}
+        secondValue={words[0].values[1]}
+        thirdValue={words[0].values[2]}
+        fourthValue={words[0].values[3]}
+        fifthValue={words[0].values[4]}
       />
       <LettersRow
         first={words[1].letters[0]}
@@ -26,6 +31,11 @@ export default function LettersGrid() {
         third={words[1].letters[2]}
         fourth={words[1].letters[3]}
         fifth={words[1].letters[4]}
+        firstValue={words[1].values[0]}
+        secondValue={words[1].values[1]}
+        thirdValue={words[1].values[2]}
+        fourthValue={words[1].values[3]}
+        fifthValue={words[1].values[4]}
       />
       <LettersRow
         first={words[2].letters[0]}
@@ -33,6 +43,11 @@ export default function LettersGrid() {
         third={words[2].letters[2]}
         fourth={words[2].letters[3]}
         fifth={words[2].letters[4]}
+        firstValue={words[2].values[0]}
+        secondValue={words[2].values[1]}
+        thirdValue={words[2].values[2]}
+        fourthValue={words[2].values[3]}
+        fifthValue={words[2].values[4]}
       />
       <LettersRow
         first={words[3].letters[0]}
@@ -40,6 +55,11 @@ export default function LettersGrid() {
         third={words[3].letters[2]}
         fourth={words[3].letters[3]}
         fifth={words[3].letters[4]}
+        firstValue={words[3].values[0]}
+        secondValue={words[3].values[1]}
+        thirdValue={words[3].values[2]}
+        fourthValue={words[3].values[3]}
+        fifthValue={words[3].values[4]}
       />
       <LettersRow
         first={words[4].letters[0]}
@@ -47,6 +67,11 @@ export default function LettersGrid() {
         third={words[4].letters[2]}
         fourth={words[4].letters[3]}
         fifth={words[4].letters[4]}
+        firstValue={words[4].values[0]}
+        secondValue={words[4].values[1]}
+        thirdValue={words[4].values[2]}
+        fourthValue={words[4].values[3]}
+        fifthValue={words[4].values[4]}
       />
       <LettersRow
         first={words[5].letters[0]}
@@ -54,6 +79,11 @@ export default function LettersGrid() {
         third={words[5].letters[2]}
         fourth={words[5].letters[3]}
         fifth={words[5].letters[4]}
+        firstValue={words[5].values[0]}
+        secondValue={words[5].values[1]}
+        thirdValue={words[5].values[2]}
+        fourthValue={words[5].values[3]}
+        fifthValue={words[5].values[4]}
       />
     </Box>
   );

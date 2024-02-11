@@ -98,7 +98,7 @@ namespace Wordle.Controllers
             result.Values.All(x => x == 0))
             {
                 await HandleCorrect(guesses, false, userId);
-                return Ok();
+                return Ok(result);
             }
 
             return Ok(result);

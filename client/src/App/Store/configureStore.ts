@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { wordSlice } from "../../Features/Keyboard/wordSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { lettersSlice } from "../../Features/LettersGrid/lettersSlice";
 
 
 export const store = configureStore({
     reducer: {
-        word: wordSlice.reducer
+        word: wordSlice.reducer,
+        letters: lettersSlice.reducer
     }
 })
 

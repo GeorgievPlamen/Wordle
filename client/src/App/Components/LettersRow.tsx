@@ -7,6 +7,11 @@ interface Props {
   third?: string;
   fourth?: string;
   fifth?: string;
+  firstValue?: number;
+  secondValue?: number;
+  thirdValue?: number;
+  fourthValue?: number;
+  fifthValue?: number;
 }
 
 export default function LettersRow({
@@ -15,6 +20,11 @@ export default function LettersRow({
   third,
   fourth,
   fifth,
+  firstValue,
+  secondValue,
+  thirdValue,
+  fourthValue,
+  fifthValue,
 }: Props) {
   return (
     <Box
@@ -24,11 +34,11 @@ export default function LettersRow({
       width={"100vw"}
       maxWidth={"320px"}
     >
-      <LetterContainer letter={first} />
-      <LetterContainer letter={second} />
-      <LetterContainer letter={third} />
-      <LetterContainer letter={fourth} />
-      <LetterContainer letter={fifth} />
+      <LetterContainer letter={first} letterValue={firstValue} />
+      <LetterContainer letter={second} letterValue={secondValue} />
+      <LetterContainer letter={third} letterValue={thirdValue} />
+      <LetterContainer letter={fourth} letterValue={fourthValue} />
+      <LetterContainer letter={fifth} letterValue={fifthValue} />
     </Box>
   );
 }
