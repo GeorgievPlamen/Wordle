@@ -7,6 +7,6 @@ namespace Contracts
 {
     public interface IWordValid
     {
-        public bool IsValid(string word, bool bulgarian);
+        public Task<bool> IsValid(string word, bool bulgarian);
     }
 }

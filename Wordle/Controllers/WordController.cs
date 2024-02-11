@@ -14,6 +14,7 @@ namespace Wordle.Controllers
         private readonly IWordValid _wordValid;
         private readonly ISuccessfullGuess _successfullGuess;
         private readonly IFailedGuess _failedGuess;
+        private readonly IWordAttempt _wordAttempt;
 
         public WordController(
             ILogger<WordController> logger,
@@ -21,7 +22,8 @@ namespace Wordle.Controllers
             IWordChecker wordChecker,
             IWordValid wordValid,
             ISuccessfullGuess successfullGuess,
-            IFailedGuess failedGuess)
+            IFailedGuess failedGuess,
+            IWordAttempt wordAttempt)
         {
             _wordService = wordService;
             _wordChecker = wordChecker;
@@ -29,6 +31,14 @@ namespace Wordle.Controllers
             _logger = logger;
             _successfullGuess = successfullGuess;
             _failedGuess = failedGuess;
+            _wordAttempt = wordAttempt;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Init(string? userId)
+        {
+            if (userId == null) return Ok();
+            return Ok(await _wordAttempt.GetAttempts(userId));
         }
 
         [HttpGet("En")]
@@ -53,7 +63,7 @@ namespace Wordle.Controllers
                 userId = CreateUserIdCookie();
             }
 
-            if (!_wordValid.IsValid(word.ToLower(), false))
+            if (!await _wordValid.IsValid(word.ToLower(), false))
             {
                 return BadRequest("Word is not valid");
             }
@@ -62,7 +72,7 @@ namespace Wordle.Controllers
             {
                 // if (Convert.ToInt32(guesses) == 6)
                 // {
-                    // return BadRequest("Already at max guesses");
+                // return BadRequest("Already at max guesses");
                 // }
             }
 
@@ -78,6 +88,8 @@ namespace Wordle.Controllers
             string usedWord = "";
 
             usedWord = PrepWord(result, usedWord);
+
+            await _wordAttempt.AddWordAttempt(userId, usedWord, false);
 
             HandleGuessesCookie(guesses, usedWord, userId);
 
@@ -102,7 +114,7 @@ namespace Wordle.Controllers
                 userId = CreateUserIdCookie();
             }
 
-            if (!_wordValid.IsValid(word, true))
+            if (!await _wordValid.IsValid(word, true))
             {
                 return BadRequest("Word is not valid");
             }
@@ -126,6 +138,8 @@ namespace Wordle.Controllers
             string usedWord = "";
 
             usedWord = PrepWord(result, usedWord);
+
+            await _wordAttempt.AddWordAttempt(userId, usedWord, true);
 
             HandleGuessesCookie(guesses, usedWord, userId, true);
 
@@ -181,28 +195,6 @@ namespace Wordle.Controllers
                 int guessTries = 0;
                 Response.Cookies.Append("guesses", guessTries.ToString(), cookieOpt);
                 Response.Cookies.Append("guessesBg", guessTries.ToString(), cookieOpt);
-            }
-            if (Request.Cookies.TryGetValue("usedWords", out string? usedWords))
-            {
-                if (!Bulgarian)
-                {
-                    Response.Cookies.Append("usedWords", usedWords + ',' + usedWord, cookieOpt);
-                }
-                else
-                {
-                    Response.Cookies.Append("usedWordsBg", usedWords + ',' + usedWord, cookieOpt);
-                }
-            }
-            else
-            {
-                if (!Bulgarian)
-                {
-                    Response.Cookies.Append("usedWords", usedWord!, cookieOpt);
-                }
-                else
-                {
-                    Response.Cookies.Append("usedWordsBg", usedWord!, cookieOpt);
-                }
             }
             int currentGuess = Convert.ToInt32(guesses);
             currentGuess++;

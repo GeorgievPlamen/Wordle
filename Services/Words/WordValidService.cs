@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Services.Words
@@ -20,15 +21,15 @@ namespace Services.Words
             _logger = logger;
             _context = context;
         }
-        public bool IsValid(string word, bool bulgarian)
+        public async Task<bool> IsValid(string word, bool bulgarian)
         {
             if (!bulgarian)
             {
-                return _context.WordsEn.Any(x => x.Value == word);
+                return await _context.WordsEn.AnyAsync(x => x.Value == word);
             }
             else if (bulgarian)
             {
-                return _context.WordsBg.Any(x => x.Value == word.ToUpper());
+                return await _context.WordsBg.AnyAsync(x => x.Value == word.ToUpper());
             }
 
             _logger.LogWarning("Word validation service failed");

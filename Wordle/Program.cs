@@ -2,6 +2,7 @@ using Contracts;
 using Entities;
 using Entities.DBInit;
 using Microsoft.EntityFrameworkCore;
+using Services.Attempts;
 using Services.Guesses;
 using Services.Words;
 
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IWordChecker, WordCheckerService>();
 builder.Services.AddScoped<IWordValid, WordValidService>();
 builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
 builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
+builder.Services.AddScoped<IWordAttempt, WordAttemptService>();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();

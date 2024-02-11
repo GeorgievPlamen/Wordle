@@ -2,6 +2,7 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(WordleDbContext))]
-    partial class WordleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240211083731_AddedTodaysGuessesTable")]
+    partial class AddedTodaysGuessesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -77,47 +80,23 @@ namespace Entities.Migrations
                     b.Property<string>("FifthGuess")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FifthGuessBg")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstGuess")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstGuessBg")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FourthGuess")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FourthGuessBg")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("SecondGuess")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SecondGuessBg")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SixthGuess")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SixthGuessBg")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ThirdGuess")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ThirdGuessBg")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("attempt")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("attemptBg")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

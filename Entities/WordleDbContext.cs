@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Entities
 {
@@ -17,5 +12,6 @@ namespace Entities
         public DbSet<WordBg> WordsBg { get; set; }
         public DbSet<WordEn> WordsEn { get; set; }
         public DbSet<GuessesEn> GuessesEn { get; set; }
+        public DbSet<GuessesToday> GuessesToday { get; set; }
     }
 }
