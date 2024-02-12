@@ -11,20 +11,23 @@ import {
 
 import close from "@mui/icons-material/Close";
 import LettersRow from "./LettersRow";
+import { useAppDispatch, useAppSelector } from "../Store/configureStore";
+import { toggleDisplay } from "./howToPlaySlice";
 
-interface Props {
-  display: string;
-  handleTutorialCard: () => void;
-}
-
-export default function HowToPlay({ display, handleTutorialCard }: Props) {
+export default function HowToPlay() {
+  const howToPlay = useAppSelector((state) => state.howToPlay);
+  const dispatch = useAppDispatch();
   return (
     <Card
       sx={{
-        display: { display },
+        display: howToPlay.display,
         minWidth: 275,
         maxWidth: 500,
         position: "absolute",
+        zIndex: "999",
+        left: "50%",
+        marginLeft: "-190px",
+        top: "10vh",
       }}
     >
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -32,7 +35,7 @@ export default function HowToPlay({ display, handleTutorialCard }: Props) {
           How To Play
         </Typography>
         <Button
-          onClick={handleTutorialCard}
+          onClick={() => dispatch(toggleDisplay())}
           sx={{ justifySelf: "flex-end", width: "40px" }}
         >
           <Icon component={close} />

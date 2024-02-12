@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { wordSlice } from "../../Features/Keyboard/wordSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { lettersSlice } from "../../Features/LettersGrid/lettersSlice";
+import { howToPlaySlice } from "../Components/howToPlaySlice";
 
 
 export const store = configureStore({
     reducer: {
         word: wordSlice.reducer,
-        letters: lettersSlice.reducer
+        letters: lettersSlice.reducer,
+        howToPlay: howToPlaySlice.reducer
     }
 })
 

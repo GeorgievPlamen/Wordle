@@ -22,7 +22,7 @@ export default function Game() {
       <Navbar />
       <Box
         display={"flex"}
-        margin={"auto"}
+        margin={"60px auto"}
         flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
