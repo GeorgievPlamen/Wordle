@@ -1,3 +1,5 @@
+using Entities;
+
 namespace Contracts.DTOs
 {
     public class AttemptsDTO
@@ -16,5 +18,28 @@ namespace Contracts.DTOs
         public string? FourthGuessBg { get; set; }
         public string? FifthGuessBg { get; set; }
         public string? SixthGuessBg { get; set; }
+
+
+    }
+
+    public static class AttemptsDTOExtensions
+    {
+        public static void MapAttempts(this AttemptsDTO attempts, GuessesToday userAttempts)
+        {
+            attempts.Attempt = userAttempts.attempt;
+            attempts.AttemptBg = userAttempts.attemptBg;
+            attempts.FirstGuess = userAttempts.FirstGuess;
+            attempts.SecondGuess = userAttempts.SecondGuess;
+            attempts.ThirdGuess = userAttempts.ThirdGuess;
+            attempts.FourthGuess = userAttempts.FourthGuess;
+            attempts.FifthGuess = userAttempts.FifthGuess;
+            attempts.SixthGuess = userAttempts.SixthGuess;
+            attempts.FirstGuessBg = userAttempts.FirstGuessBg;
+            attempts.SecondGuessBg = userAttempts.SecondGuessBg;
+            attempts.ThirdGuessBg = userAttempts.ThirdGuessBg;
+            attempts.FourthGuess = userAttempts.FourthGuessBg;
+            attempts.FifthGuessBg = userAttempts.FifthGuessBg;
+            attempts.SixthGuessBg = userAttempts.SixthGuessBg;
+        }
     }
 }

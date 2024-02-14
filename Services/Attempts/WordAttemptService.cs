@@ -94,27 +94,10 @@ namespace Services.Attempts
             GuessesToday userAttempts = await _context.GuessesToday
                 .FirstOrDefaultAsync(x => x.UserId == userId)
                 ?? new GuessesToday { UserId = userId };
-            MapAttempts(attempts, userAttempts);
+
+            attempts.MapAttempts(userAttempts);
 
             return attempts;
-        }
-
-        private static void MapAttempts(AttemptsDTO attempts, GuessesToday userAttempts)
-        {
-            attempts.Attempt = userAttempts.attempt;
-            attempts.AttemptBg = userAttempts.attemptBg;
-            attempts.FirstGuess = userAttempts.FirstGuess;
-            attempts.SecondGuess = userAttempts.SecondGuess;
-            attempts.ThirdGuess = userAttempts.ThirdGuess;
-            attempts.FourthGuess = userAttempts.FourthGuess;
-            attempts.FifthGuess = userAttempts.FifthGuess;
-            attempts.SixthGuess = userAttempts.SixthGuess;
-            attempts.FirstGuessBg = userAttempts.FirstGuessBg;
-            attempts.SecondGuessBg = userAttempts.SecondGuessBg;
-            attempts.ThirdGuessBg = userAttempts.ThirdGuessBg;
-            attempts.FourthGuess = userAttempts.FourthGuessBg;
-            attempts.FifthGuessBg = userAttempts.FifthGuessBg;
-            attempts.SixthGuessBg = userAttempts.SixthGuessBg;
         }
     }
 }

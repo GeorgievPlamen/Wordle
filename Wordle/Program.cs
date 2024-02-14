@@ -22,6 +22,7 @@ builder.Services.AddScoped<IWordChecker, WordCheckerService>();
 builder.Services.AddScoped<IWordValid, WordValidService>();
 builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
 builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
+builder.Services.AddScoped<ICurrentGuesses, CurrentGuessesService>();
 builder.Services.AddScoped<IWordAttempt, WordAttemptService>();
 builder.Services.AddMemoryCache();
 
