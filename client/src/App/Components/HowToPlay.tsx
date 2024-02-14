@@ -26,7 +26,7 @@ export default function HowToPlay() {
         position: "absolute",
         zIndex: "999",
         left: "50%",
-        marginLeft: { xs: "-180px"},
+        marginLeft: { xs: "-180px" },
         top: "10vh",
       }}
     >
@@ -45,7 +45,7 @@ export default function HowToPlay() {
         <Typography variant="h6" component="div">
           Guess the Wordle in 6 tries.
         </Typography>
-        <Typography>
+        <Box>
           <ul>
             <li>Each guess must be a valid 5-letter word.</li>
             <li>
@@ -53,7 +53,7 @@ export default function HowToPlay() {
               was to the word.
             </li>
           </ul>
-        </Typography>
+        </Box>
         <Typography fontWeight={"bold"}>Examples</Typography>
         <Box>
           <LettersRow

@@ -15,7 +15,6 @@ namespace Wordle.Controllers
         private readonly ISuccessfullGuess _successfullGuess;
         private readonly IFailedGuess _failedGuess;
         private readonly IWordAttempt _wordAttempt;
-        private readonly ICurrentGuesses _currentGuesses;
 
         public WordController(
             ILogger<WordController> logger,
@@ -24,8 +23,7 @@ namespace Wordle.Controllers
             IWordValid wordValid,
             ISuccessfullGuess successfullGuess,
             IFailedGuess failedGuess,
-            IWordAttempt wordAttempt,
-            ICurrentGuesses currentGuesses)
+            IWordAttempt wordAttempt)
         {
             _wordService = wordService;
             _wordChecker = wordChecker;
@@ -34,20 +32,6 @@ namespace Wordle.Controllers
             _successfullGuess = successfullGuess;
             _failedGuess = failedGuess;
             _wordAttempt = wordAttempt;
-            _currentGuesses = currentGuesses;
-        }
-
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> Init(string? userId)
-        {
-            if (userId == null) return Ok("Haven't played yet.");
-            return Ok(await _wordAttempt.GetAttempts(userId));
-        }
-        [HttpGet("userguesses/{userId}")]
-        public async Task<IActionResult> UserGuesses(string? userId)
-        {
-            if (userId == null) return Ok("No logged guesses yet.");
-            return Ok(await _currentGuesses.UserGuesses(userId));
         }
 
         [HttpGet("En")]

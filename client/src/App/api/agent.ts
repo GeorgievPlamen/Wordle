@@ -21,9 +21,13 @@ const Word = {
     checkEnWord: (word: string) => requests.get("Word/En/" + word)
 }
 
+const Guesses = {
+    userGuesses: (userId: string) => requests.get("Attempts/userguesses/" + userId)
+}
+
 
 const agent = {
-    Word,
+    Word,Guesses
 }
 
 export default agent;
