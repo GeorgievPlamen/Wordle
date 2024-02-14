@@ -18,7 +18,7 @@ export default function Home() {
         alignItems={"center"}
         sx={{
           width: { xs: "356px", sm: "450px", md: "600px" },
-          height: "650px",
+          height: "100vh",
         }}
       >
         <Box

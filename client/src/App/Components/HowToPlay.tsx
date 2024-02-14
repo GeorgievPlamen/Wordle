@@ -22,11 +22,11 @@ export default function HowToPlay() {
       sx={{
         display: howToPlay.display,
         minWidth: 275,
-        maxWidth: 500,
+        maxWidth: 360,
         position: "absolute",
         zIndex: "999",
         left: "50%",
-        marginLeft: "-190px",
+        marginLeft: { xs: "-180px"},
         top: "10vh",
       }}
     >
