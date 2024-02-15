@@ -1,8 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
-import logo from "/public/wordle-icon.svg";
+import logo from "/wordle-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../App/Store/configureStore";
-import { toggleDisplay } from "../../App/Components/howToPlaySlice";
+import { toggleDisplay } from "../HowToPlay/howToPlaySlice";
 
 export default function Home() {
   const nav = useNavigate();

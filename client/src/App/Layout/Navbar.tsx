@@ -14,7 +14,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../Store/configureStore";
-import { toggleDisplay } from "./howToPlaySlice";
+import { toggleDisplay } from "../../Features/HowToPlay/howToPlaySlice";
+import { toggleStatsDisplay } from "../../Features/Statistics/statisticsSlice";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -145,6 +146,7 @@ export default function Navbar() {
                 />
               </Button>
               <Button
+                onClick={() => dispatch(toggleStatsDisplay())}
                 style={{
                   color: "black",
                   textDecoration: "none",

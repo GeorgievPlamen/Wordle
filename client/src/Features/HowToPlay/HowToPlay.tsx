@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 
 import close from "@mui/icons-material/Close";
-import LettersRow from "./LettersRow";
-import { useAppDispatch, useAppSelector } from "../Store/configureStore";
+import LettersRow from "../../App/Components/LettersRow";
+import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import { toggleDisplay } from "./howToPlaySlice";
 
 export default function HowToPlay() {

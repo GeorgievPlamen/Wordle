@@ -19,7 +19,7 @@ export default function KeyBoardLetterEnter() {
     if (words[currentWord].letters.length === 5 && currentWord < 5) {
       try {
         await agent.Word.checkEnWord(words[currentWord].letters).then(
-          (data: Props) => {
+          async (data: Props) => {
             for (let i = 0; i < 5; i++) {
               //loop trough all letters and add values with dispatch
               dispatch(
