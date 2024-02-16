@@ -8,20 +8,29 @@ import {
   Icon,
   Typography,
 } from "@mui/material";
+import { BarChart } from "@mui/x-charts/BarChart";
 
 import close from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import { toggleStatsDisplay } from "./statisticsSlice";
-import { BarChart } from "@mui/icons-material";
 
 export default function Statistics() {
   const stats = useAppSelector((state) => state.stats);
   const dispatch = useAppDispatch();
-  const chartSetting = {
-    xAxis: [{}],
-    width: 500,
-    height: 400,
-  };
+  const series = [
+    {
+      data: [
+        stats.first || 0,
+        stats.second || 0,
+        stats.third || 0,
+        stats.fourth || 0,
+        stats.fifth || 0,
+        stats.sixth || 0,
+      ],
+      color: "#787c7e",
+    },
+  ];
+
   return (
     <Card
       sx={{
@@ -60,12 +69,19 @@ export default function Statistics() {
           </ul>
         </Box>
         <Divider />
-        {/* <BarChart
-          dataset={dataset}
-          yAxis={[{ scaleType: "band", dataKey: "guess" }]}
+        <BarChart
+          width={300}
+          height={300}
           layout="horizontal"
-          {...chartSetting}
-        /> */}
+          yAxis={[
+            {
+              scaleType: "band",
+              data: ["1", "2", "3", "4", "5", "6"],
+            },
+          ]}
+          series={series.slice(0)}
+          bottomAxis={null}
+        />
         <Divider />
         <Typography marginTop={"20px"}>
           A new puzzle is released daily at midnight.
