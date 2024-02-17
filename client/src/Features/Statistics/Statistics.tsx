@@ -17,6 +17,16 @@ import { toggleStatsDisplay } from "./statisticsSlice";
 export default function Statistics() {
   const stats = useAppSelector((state) => state.stats);
   const dispatch = useAppDispatch();
+  const total =
+    stats.first! +
+    stats.second! +
+    stats.third! +
+    stats.fourth! +
+    stats.fifth! +
+    stats.sixth! +
+    stats.failedEn!;
+
+  const winRatio: number = ((total - stats.failedEn!) / total) * 100;
   const series = [
     {
       data: [
@@ -56,22 +66,32 @@ export default function Statistics() {
         </Button>
       </CardActions>
       <CardContent>
-        <Typography variant="h6" component="div">
-          Guess the Wordle in 6 tries.
-        </Typography>
-        <Box>
-          <ul>
-            <li>Each guess must be a valid 5-letter word.</li>
-            <li>
-              The color of the tiles will change to show how close your guess
-              was to the word.
-            </li>
-          </ul>
+        <Box
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"space-around"}
+          alignItems={"center"}
+        >
+          <Box>
+            <Typography variant="h4" textAlign={"center"}>
+              {total || 0}
+            </Typography>
+            <Typography textAlign={"center"}>Played</Typography>
+          </Box>
+          <Box>
+            <Typography variant="h4" textAlign={"center"}>
+              {(winRatio || 0).toFixed(1)}
+            </Typography>
+            <Typography textAlign={"center"}>Win %</Typography>
+          </Box>
         </Box>
         <Divider />
+        <Typography variant="h6" fontWeight={"bold"} marginTop={"10px"}>
+          Guess Distribution
+        </Typography>
         <BarChart
-          width={300}
-          height={300}
+          width={280}
+          height={230}
           layout="horizontal"
           yAxis={[
             {

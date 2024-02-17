@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Wordle\\wordle\\Wordle.csproj": {}
+    "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj": {}
   },
   "projects": {
     "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj": {
@@ -192,14 +192,14 @@
         }
       }
     },
-    "D:\\Projects\\Wordle\\wordle\\Wordle.csproj": {
+    "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
+        "projectUniqueName": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
         "projectName": "Wordle",
-        "projectPath": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
+        "projectPath": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
         "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Wordle\\wordle\\obj\\",
+        "outputPath": "D:\\Projects\\Wordle\\Wordle\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",
