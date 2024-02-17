@@ -1,10 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
 import logo from "/wordle-icon.svg";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../App/Store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import { toggleDisplay } from "../HowToPlay/howToPlaySlice";
 
 export default function Home() {
+  const game = useAppSelector((state) => state.game);
   const nav = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -46,7 +47,9 @@ export default function Home() {
           }}
         >
           <Typography align="center" variant="h4">
-            Get 6 chances to guess a 5-letter word.
+            {game.bulgarian
+              ? "Получи 6 шанса за да познаеш дума от 5 букви"
+              : "Get 6 chances to guess a 5-letter word."}
           </Typography>
         </Box>
         <Box
@@ -68,7 +71,7 @@ export default function Home() {
               color: "white",
             }}
           >
-            Play
+            {game.bulgarian ? "Играй" : "Play"}
           </Button>
           <Button
             color="secondary"
@@ -81,7 +84,7 @@ export default function Home() {
             }}
           >
             <Typography color={"textPrimary"} fontSize={"15px"}>
-              Log in
+              {game.bulgarian ? "Влез" : "Log In"}
             </Typography>
           </Button>
           <Button
@@ -96,12 +99,16 @@ export default function Home() {
             }}
           >
             <Typography color={"textPrimary"} fontSize={"15px"}>
-              How To Play
+              {game.bulgarian ? "Как се играе" : "How To Play"}
             </Typography>
           </Button>
         </Box>
         <Box justifySelf={"end"}>
-          <Typography variant="h6">Made by Plamen Georgiev</Typography>
+          <Typography variant="h6">
+            {game.bulgarian
+              ? "Направено от Пламен Георгиев"
+              : "Made by Plamen Georgiev"}
+          </Typography>
         </Box>
       </Box>
     </>

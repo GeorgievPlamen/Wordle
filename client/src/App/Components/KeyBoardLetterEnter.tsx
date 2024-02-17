@@ -1,10 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import agent from "../api/agent";
-import {
-  completeWord,
-  completeWordBg,
-} from "../../Features/Keyboard/wordSlice";
+import { completeWord, completeWordBg } from "../../Features/Game/wordSlice";
 import { useState } from "react";
 import { addValue, addValueBg } from "../../Features/LettersGrid/lettersSlice";
 
@@ -14,19 +11,19 @@ interface Props {
 }
 
 export default function KeyBoardLetterEnter() {
+  const currenWordEn = useAppSelector((state) => state.word.currentWordEn);
   const wordsEn = useAppSelector((state) => state.word.words);
   const wordsBg = useAppSelector((state) => state.word.wordsBg);
   const game = useAppSelector((state) => state.game);
   const words = game.bulgarian ? wordsBg : wordsEn;
-  const [currentWord, setCurrentWord] = useState(0);
   const [currentWordBg, setCurrentWordBg] = useState(0);
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
-    console.log(words[currentWord].letters.length);
-    if (words[currentWord].letters.length === 5 && currentWord < 5) {
+    console.log(words[currenWordEn].letters.length);
+    if (words[currenWordEn].letters.length === 5 && currenWordEn < 5) {
       try {
-        await agent.Word.checkEnWord(words[currentWord].letters).then(
+        await agent.Word.checkEnWord(words[currenWordEn].letters).then(
           async (data: Props) => {
             for (let i = 0; i < 5; i++) {
               //loop trough all letters and add values with dispatch
@@ -38,7 +35,6 @@ export default function KeyBoardLetterEnter() {
               );
             }
             dispatch(completeWord({ values: data.values }));
-            setCurrentWord(currentWord + 1);
           }
         );
       } catch (error) {

@@ -17,8 +17,8 @@ export interface WordsState {
     status: string;
     completed: boolean;
     completedBg: boolean;
-    currentLettersEn: number;
-    currentLettersBg: number;
+    currentWordEn: number;
+    currentWordBg: number;
 }
 
 const initialState: WordsState = {
@@ -26,8 +26,8 @@ const initialState: WordsState = {
     status: "idle",
     completed: false,
     completedBg: false,
-    currentLettersEn: 0,
-    currentLettersBg: 0,
+    currentWordEn: 0,
+    currentWordBg: 0,
     words: {
         0: {letters: "", completed: false,values: []},
         1: {letters: "", completed: false,values: []},
@@ -54,7 +54,7 @@ export const wordSlice = createSlice({
             if (state.completed) 
             {
                 return;
-            }    
+            }
             if(!state.words[0].completed)
             {
                 if(state.words[0].letters.length < 5)
@@ -182,7 +182,7 @@ export const wordSlice = createSlice({
             if (state.completed) 
             {
                 return;
-            }    
+            }
             if(!state.words[0].completed)
             {
                 state.words[0].letters = state.words[0].letters.substring(0,state.words[0].letters.length - 1);
@@ -213,27 +213,27 @@ export const wordSlice = createSlice({
             if (!state.words[0].completed){
                 state.words[0].values = values;
                 state.words[0].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             } else if (!state.words[1].completed) {
                 state.words[1].values = values;
                 state.words[1].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             } else if (!state.words[2].completed) {
                 state.words[2].values = values;
                 state.words[2].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             } else if (!state.words[3].completed) {
                 state.words[3].values = values;
                 state.words[3].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             } else if (!state.words[4].completed) {
                 state.words[4].values = values;
                 state.words[4].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             } else if (!state.words[5].completed) {
                 state.words[5].values = values;
                 state.words[5].completed = true;
-                state.currentLettersEn = 0;
+                state.currentWordEn++;
             }
 
             if(values[0] == 0 
@@ -250,28 +250,22 @@ export const wordSlice = createSlice({
             if (!state.wordsBg[0].completed){
                 state.wordsBg[0].values = values;
                 state.wordsBg[0].completed = true;
-                state.currentLettersBg = 0;
             } else if (!state.wordsBg[1].completed) {
                 state.wordsBg[1].values = values;
                 state.wordsBg[1].completed = true;
-                state.currentLettersBg = 0;
             } else if (!state.wordsBg[2].completed) {
                 state.wordsBg[2].values = values;
                 state.wordsBg[2].completed = true;
-                state.currentLettersBg = 0;
             } else if (!state.wordsBg[3].completed) {
                 state.wordsBg[3].values = values;
                 state.wordsBg[3].completed = true;
-                state.currentLettersBg = 0;
             } else if (!state.wordsBg[4].completed) {
                 state.wordsBg[4].values = values;
                 state.wordsBg[4].completed = true;
-                state.currentLettersBg = 0;
 
             } else if (!state.wordsBg[5].completed) {
                 state.wordsBg[5].values = values;
                 state.wordsBg[5].completed = true;
-                state.currentLettersBg = 0;
             }
 
             if(values[0] == 0 

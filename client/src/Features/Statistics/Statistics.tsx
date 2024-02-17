@@ -16,8 +16,9 @@ import { toggleStatsDisplay } from "./statisticsSlice";
 
 export default function Statistics() {
   const stats = useAppSelector((state) => state.stats);
+  const languageBg = useAppSelector((state) => state.game.bulgarian);
   const dispatch = useAppDispatch();
-  const total =
+  const totalEn =
     stats.first! +
     stats.second! +
     stats.third! +
@@ -26,16 +27,33 @@ export default function Statistics() {
     stats.sixth! +
     stats.failedEn!;
 
-  const winRatio: number = ((total - stats.failedEn!) / total) * 100;
+  const totalBg =
+    stats.firstBg! +
+    stats.secondBg! +
+    stats.thirdBg! +
+    stats.fourthBg! +
+    stats.fifthBg! +
+    stats.sixthBg! +
+    stats.failedBg!;
+
+  const first = languageBg ? stats.firstBg : stats.first;
+  const second = languageBg ? stats.secondBg : stats.second;
+  const third = languageBg ? stats.thirdBg : stats.third;
+  const fourth = languageBg ? stats.fourthBg : stats.fourth;
+  const fifth = languageBg ? stats.fifthBg : stats.fifth;
+  const sixth = languageBg ? stats.sixthBg : stats.sixth;
+
+  const winRatioEn: number = ((totalEn - stats.failedEn!) / totalEn) * 100;
+  const winRatioBg: number = ((totalBg - stats.failedBg!) / totalBg) * 100;
   const series = [
     {
       data: [
-        stats.first || 0,
-        stats.second || 0,
-        stats.third || 0,
-        stats.fourth || 0,
-        stats.fifth || 0,
-        stats.sixth || 0,
+        first || 0,
+        second || 0,
+        third || 0,
+        fourth || 0,
+        fifth || 0,
+        sixth || 0,
       ],
       color: "#787c7e",
     },
@@ -56,13 +74,13 @@ export default function Statistics() {
     >
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h4" fontWeight={"bold"} sx={{}}>
-          Statistics
+          {languageBg ? "Статистика" : "Statistics"}
         </Typography>
         <Button
           onClick={() => dispatch(toggleStatsDisplay())}
           sx={{ justifySelf: "flex-end", width: "40px" }}
         >
-          <Icon component={close} />
+          <Icon color="action" component={close} />
         </Button>
       </CardActions>
       <CardContent>
@@ -74,20 +92,23 @@ export default function Statistics() {
         >
           <Box>
             <Typography variant="h4" textAlign={"center"}>
-              {total || 0}
+              {(languageBg ? totalBg : totalEn) || 0}
             </Typography>
-            <Typography textAlign={"center"}>Played</Typography>
+            <Typography textAlign={"center"}>
+              {languageBg ? "Играни" : "Played"}
+            </Typography>
           </Box>
           <Box>
             <Typography variant="h4" textAlign={"center"}>
-              {(winRatio || 0).toFixed(1)}
+              {((languageBg ? winRatioBg : winRatioEn) || 0).toFixed(1)}
             </Typography>
-            <Typography textAlign={"center"}>Win %</Typography>
+            <Typography textAlign={"center"}>
+              {languageBg ? "Познати" : "Win"} %
+            </Typography>
           </Box>
         </Box>
-        <Divider />
         <Typography variant="h6" fontWeight={"bold"} marginTop={"10px"}>
-          Guess Distribution
+          {languageBg ? "Разпределение на опити" : "Guess Distribution"}
         </Typography>
         <BarChart
           width={280}
@@ -103,8 +124,10 @@ export default function Statistics() {
           bottomAxis={null}
         />
         <Divider />
-        <Typography marginTop={"20px"}>
-          A new puzzle is released daily at midnight.
+        <Typography marginTop={"20px"} textAlign={"center"}>
+          {languageBg
+            ? "Колко пъти можеш да познаеш?"
+            : "How many wins can you get?"}
         </Typography>
       </CardContent>
     </Card>

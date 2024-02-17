@@ -1,10 +1,7 @@
 import { Box, Button, Icon } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
-import {
-  removeLetter,
-  removeLetterBg,
-} from "../../Features/Keyboard/wordSlice";
+import { removeLetter, removeLetterBg } from "../../Features/Game/wordSlice";
 
 export default function KeyBoardLetterDelete() {
   const game = useAppSelector((state) => state.game);

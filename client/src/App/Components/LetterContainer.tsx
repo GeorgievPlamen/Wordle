@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useAppSelector } from "../Store/configureStore";
 
 interface Props {
   letter?: string;
@@ -8,10 +9,15 @@ interface Props {
 
 export default function LetterContainer({ letter, letterValue }: Props) {
   const [backgroundColor, setBackgroundColor] = useState("");
+  const game = useAppSelector((state) => state.game);
   const handleBackgroundColorChange = (color: string) => {
     setBackgroundColor(color);
   };
   useEffect(() => {
+    game.bulgarian;
+    if (letterValue === undefined) {
+      handleBackgroundColorChange("#");
+    }
     if (letterValue === 2) {
       handleBackgroundColorChange("#787c7e");
     }
@@ -21,8 +27,8 @@ export default function LetterContainer({ letter, letterValue }: Props) {
     if (letterValue === 0) {
       handleBackgroundColorChange("#6aaa64");
     }
-  }, [letterValue]);
-  
+  }, [game.bulgarian, letterValue]);
+
   return (
     <Box
       sx={{ backgroundColor }}

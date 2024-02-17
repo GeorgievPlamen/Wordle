@@ -80,7 +80,9 @@ export default function Navbar() {
                     navigate("/");
                   }}
                 >
-                  <Typography textAlign="center">Home</Typography>
+                  <Typography textAlign="center">
+                    {game.bulgarian ? "Начало" : "Home"}
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -91,7 +93,9 @@ export default function Navbar() {
                     );
                   }}
                 >
-                  <Typography textAlign="center">Original</Typography>
+                  <Typography textAlign="center">
+                    {game.bulgarian ? "Оригинал" : "Original"}
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -102,7 +106,9 @@ export default function Navbar() {
                     );
                   }}
                 >
-                  <Typography textAlign="center">Source</Typography>
+                  <Typography textAlign="center">
+                    {game.bulgarian ? "Източник" : "Source"}
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -110,7 +116,9 @@ export default function Navbar() {
                     navigate("/");
                   }}
                 >
-                  <Typography textAlign="center">Logout</Typography>
+                  <Typography textAlign="center">
+                    {game.bulgarian ? "Излез" : "Logout"}
+                  </Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -138,8 +146,12 @@ export default function Navbar() {
                   height: "50px",
                 }}
               >
-                <Typography variant="h5" fontWeight={"bold"}>
-                  {game.bulgarian ? "BG" : "EN"}
+                <Typography
+                  color={"textPrimary"}
+                  variant="h5"
+                  fontWeight={"bold"}
+                >
+                  {game.bulgarian ? "БГ" : "EN"}
                 </Typography>
               </Button>
               <Button

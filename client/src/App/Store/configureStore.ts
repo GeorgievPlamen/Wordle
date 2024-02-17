@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { wordSlice } from "../../Features/Keyboard/wordSlice";
+import { wordSlice } from "../../Features/Game/wordSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { lettersSlice } from "../../Features/LettersGrid/lettersSlice";
 import { howToPlaySlice } from "../../Features/HowToPlay/howToPlaySlice";

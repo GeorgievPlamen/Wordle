@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
-import { addLetter, addLetterBg } from "../../Features/Keyboard/wordSlice";
+import { addLetter, addLetterBg } from "../../Features/Game/wordSlice";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 export default function KeyBoardLetter({ letter }: Props) {
   const game = useAppSelector((state) => state.game);
+  const letterWidth = game.bulgarian ? "7vw" : "8vw";
   const { letters, lettersBg } = useAppSelector((state) => state.letters);
   const [letterValue, setLetterValue] = useState(
     game.bulgarian ? lettersBg[letter].value : letters[letter].value
@@ -49,9 +50,9 @@ export default function KeyBoardLetter({ letter }: Props) {
           backgroundColor,
           margin: "10px 2px",
           padding: "0px",
-          minWidth: "27.5px",
+          minWidth: "20.5px",
           minHeight: "46px",
-          width: "8vw",
+          width: letterWidth,
           height: "100%",
           maxWidth: "43px",
           maxHeight: "58px",
