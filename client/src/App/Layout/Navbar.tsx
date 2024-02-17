@@ -16,6 +16,7 @@ import { Button } from "@mui/material";
 import { useAppDispatch } from "../Store/configureStore";
 import { toggleDisplay } from "../../Features/HowToPlay/howToPlaySlice";
 import { toggleStatsDisplay } from "../../Features/Statistics/statisticsSlice";
+import { toggleDarkMode } from "../../Features/Game/gameSlice";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar position="fixed" id="about" sx={{ backgroundColor: "#fff" }}>
+      <AppBar position="fixed" id="about" sx={{ backgroundColor: "primary" }}>
         <Container maxWidth="xl" sx={{ padding: "0", margin: "auto" }}>
           <Toolbar
             sx={{
@@ -51,7 +52,6 @@ export default function Navbar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="primary"
               >
                 <MenuIcon />
               </IconButton>
@@ -116,7 +116,7 @@ export default function Navbar() {
             <Typography
               variant="h4"
               noWrap
-              color={"primary"}
+              color={"textPrimary"}
               sx={{
                 display: "flex",
                 flexGrow: 1,
@@ -138,6 +138,7 @@ export default function Navbar() {
                 }}
               >
                 <HelpOutlineIcon
+                  color="action"
                   sx={{
                     margin: { xs: "0.35em", md: "0.7em" },
                     width: { xs: "1em", md: "1.7em" },
@@ -155,6 +156,7 @@ export default function Navbar() {
                 }}
               >
                 <BarChartIcon
+                  color="action"
                   sx={{
                     margin: { xs: "0.35em", md: "0.7em" },
                     width: { xs: "1em", md: "1.7em" },
@@ -163,6 +165,7 @@ export default function Navbar() {
                 />
               </Button>
               <Button
+                onClick={() => dispatch(toggleDarkMode())}
                 style={{
                   color: "black",
                   textDecoration: "none",
@@ -171,6 +174,7 @@ export default function Navbar() {
                 }}
               >
                 <DarkModeIcon
+                  color="action"
                   sx={{
                     margin: { xs: "0.35em", md: "0.7em" },
                     width: { xs: "1em", md: "1.7em" },

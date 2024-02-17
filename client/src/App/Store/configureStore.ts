@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { lettersSlice } from "../../Features/LettersGrid/lettersSlice";
 import { howToPlaySlice } from "../../Features/HowToPlay/howToPlaySlice";
 import { statsSlice } from "../../Features/Statistics/statisticsSlice";
+import { gameSlice } from "../../Features/Game/gameSlice";
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
         letters: lettersSlice.reducer,
         howToPlay: howToPlaySlice.reducer,
         stats: statsSlice.reducer,
+        game: gameSlice.reducer,
     }
 })
 
