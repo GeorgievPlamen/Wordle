@@ -27,8 +27,12 @@ export default function TestGetWord() {
       <Typography variant="h5" margin={"auto"}>
         {enWord}
       </Typography>
-      <Button onClick={handleGetWord}>Get Word</Button>
-      <Button onClick={handleGetUserAttempts}>Get Word</Button>
+      <Button onClick={handleGetWord}>
+        <Typography color={"textPrimary"}>Get Word</Typography>
+      </Button>
+      <Button onClick={handleGetUserAttempts}>
+        <Typography color={"textPrimary"}>Get Word</Typography>
+      </Button>
     </Box>
   );
 }

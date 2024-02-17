@@ -71,17 +71,33 @@ export default function Home() {
             Play
           </Button>
           <Button
+            color="secondary"
             variant="outlined"
-            sx={{ margin: "10px", width: "130px", borderRadius: "50px" }}
+            sx={{
+              margin: "10px",
+              width: "130px",
+              borderRadius: "50px",
+              borderColor: "#656565",
+            }}
           >
-            Log in
+            <Typography color={"textPrimary"} fontSize={"15px"}>
+              Log in
+            </Typography>
           </Button>
           <Button
             onClick={() => dispatch(toggleDisplay())}
+            color="secondary"
             variant="outlined"
-            sx={{ margin: "10px", width: "130px", borderRadius: "50px" }}
+            sx={{
+              margin: "10px",
+              width: "130px",
+              borderRadius: "50px",
+              borderColor: "#656565",
+            }}
           >
-            How to play
+            <Typography color={"textPrimary"} fontSize={"15px"}>
+              How To Play
+            </Typography>
           </Button>
         </Box>
         <Box justifySelf={"end"}>
