@@ -1,9 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import agent from "../api/agent";
-import { completeWord } from "../../Features/Keyboard/wordSlice";
+import {
+  completeWord,
+  completeWordBg,
+} from "../../Features/Keyboard/wordSlice";
 import { useState } from "react";
-import { addValue } from "../../Features/LettersGrid/lettersSlice";
+import { addValue, addValueBg } from "../../Features/LettersGrid/lettersSlice";
 
 interface Props {
   letters: string[];
@@ -11,11 +14,16 @@ interface Props {
 }
 
 export default function KeyBoardLetterEnter() {
-  const { words } = useAppSelector((state) => state.word);
+  const wordsEn = useAppSelector((state) => state.word.words);
+  const wordsBg = useAppSelector((state) => state.word.wordsBg);
+  const game = useAppSelector((state) => state.game);
+  const words = game.bulgarian ? wordsBg : wordsEn;
   const [currentWord, setCurrentWord] = useState(0);
+  const [currentWordBg, setCurrentWordBg] = useState(0);
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
+    console.log(words[currentWord].letters.length);
     if (words[currentWord].letters.length === 5 && currentWord < 5) {
       try {
         await agent.Word.checkEnWord(words[currentWord].letters).then(
@@ -38,10 +46,35 @@ export default function KeyBoardLetterEnter() {
       }
     }
   };
+
+  const handleWordInputBg = async () => {
+    console.log(words[currentWordBg].letters.length);
+    if (words[currentWordBg].letters.length === 5 && currentWordBg < 5) {
+      try {
+        await agent.Word.checkBgWord(words[currentWordBg].letters).then(
+          async (data: Props) => {
+            for (let i = 0; i < 5; i++) {
+              //loop trough all letters and add values with dispatch
+              dispatch(
+                addValueBg({
+                  letter: data.letters[i],
+                  letterValue: data.values[i],
+                })
+              );
+            }
+            dispatch(completeWordBg({ values: data.values }));
+            setCurrentWordBg(currentWordBg + 1);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <Box>
       <Button
-        onClick={handleWordInput}
+        onClick={game.bulgarian ? handleWordInputBg : handleWordInput}
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

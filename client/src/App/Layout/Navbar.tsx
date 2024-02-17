@@ -13,12 +13,13 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useAppDispatch } from "../Store/configureStore";
+import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import { toggleDisplay } from "../../Features/HowToPlay/howToPlaySlice";
 import { toggleStatsDisplay } from "../../Features/Statistics/statisticsSlice";
-import { toggleDarkMode } from "../../Features/Game/gameSlice";
+import { toggleDarkMode, toggleLanguage } from "../../Features/Game/gameSlice";
 
 export default function Navbar() {
+  const game = useAppSelector((state) => state.game);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -128,6 +129,19 @@ export default function Navbar() {
             </Typography>
 
             <Box display={"flex"} justifyContent={"center"}>
+              <Button
+                onClick={() => dispatch(toggleLanguage())}
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                  width: "50px",
+                  height: "50px",
+                }}
+              >
+                <Typography variant="h5" fontWeight={"bold"}>
+                  {game.bulgarian ? "BG" : "EN"}
+                </Typography>
+              </Button>
               <Button
                 onClick={() => dispatch(toggleDisplay())}
                 style={{

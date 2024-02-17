@@ -29,4 +29,4 @@ export const gameSlice = createSlice({
     }
     })
 
-export const {toggleDarkMode, initializeGame} = gameSlice.actions;
+export const {toggleDarkMode, initializeGame,toggleLanguage} = gameSlice.actions;

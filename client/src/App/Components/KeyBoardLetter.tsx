@@ -1,21 +1,28 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
-import { addLetter } from "../../Features/Keyboard/wordSlice";
+import { addLetter, addLetterBg } from "../../Features/Keyboard/wordSlice";
 import { useEffect, useState } from "react";
 
 interface Props {
   letter: string;
 }
 export default function KeyBoardLetter({ letter }: Props) {
-  const { letters } = useAppSelector((state) => state.letters);
-  const [letterValue, setLetterValue] = useState(letters[letter].value);
+  const game = useAppSelector((state) => state.game);
+  const { letters, lettersBg } = useAppSelector((state) => state.letters);
+  const [letterValue, setLetterValue] = useState(
+    game.bulgarian ? lettersBg[letter].value : letters[letter].value
+  );
   const [backgroundColor, setBackgroundColor] = useState("");
   const handleBackgroundColorChange = (color: string) => {
     setBackgroundColor(color);
   };
   const dispatch = useAppDispatch();
   useEffect(() => {
-    setLetterValue(letterValue - letterValue + letters[letter].value);
+    setLetterValue(
+      letterValue -
+        letterValue +
+        (game.bulgarian ? lettersBg[letter].value : letters[letter].value)
+    );
     if (letterValue === 2) {
       handleBackgroundColorChange("#787c7e");
     }
@@ -25,11 +32,13 @@ export default function KeyBoardLetter({ letter }: Props) {
     if (letterValue === 0) {
       handleBackgroundColorChange("#6aaa64");
     }
-  }, [letter, letterValue, letters]);
+  }, [game.bulgarian, letter, letterValue, letters, lettersBg]);
   return (
     <Box>
       <Button
-        onClick={() => dispatch(addLetter(letter))}
+        onClick={() =>
+          dispatch(game.bulgarian ? addLetterBg(letter) : addLetter(letter))
+        }
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

@@ -8,6 +8,7 @@ import Navbar from "../../App/Layout/Navbar";
 import agent from "../../App/api/agent";
 import { addStats } from "../Statistics/statisticsSlice";
 import { Cookies } from "react-cookie";
+import KeyBoardBg from "../Keyboard/KeyBoardBg";
 
 interface GuessesProps {
   first: number;
@@ -27,8 +28,9 @@ interface GuessesProps {
 }
 
 export default function Game() {
-  const words = useAppSelector((state) => state.word);
-  const game = words.completed;
+  const game = useAppSelector((state) => state.game);
+  const word = useAppSelector((state) => state.word);
+  const wordCompleted = word.completed;
   const dispatch = useAppDispatch();
   const cookies = new Cookies();
   const userId = cookies.get("userId");
@@ -61,13 +63,13 @@ export default function Game() {
       }
     }
 
-    if (game === true) {
+    if (wordCompleted === true) {
       fetch();
       setTimeout(() => {
         alert("Splendid!");
       }, 2000);
     }
-  }, [dispatch, game, userId]);
+  }, [dispatch, wordCompleted, userId]);
   return (
     <>
       <Navbar />
@@ -79,7 +81,7 @@ export default function Game() {
         justifyContent={"center"}
       >
         <LettersGrid />
-        <KeyBoardEn />
+        {game.bulgarian ? <KeyBoardBg /> : <KeyBoardEn />}
         <TestGetWord />
       </Box>
     </>

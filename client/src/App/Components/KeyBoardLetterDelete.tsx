@@ -1,14 +1,20 @@
 import { Box, Button, Icon } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import { useAppDispatch } from "../Store/configureStore";
-import { removeLetter } from "../../Features/Keyboard/wordSlice";
+import { useAppDispatch, useAppSelector } from "../Store/configureStore";
+import {
+  removeLetter,
+  removeLetterBg,
+} from "../../Features/Keyboard/wordSlice";
 
 export default function KeyBoardLetterDelete() {
+  const game = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
   return (
     <Box>
       <Button
-        onClick={() => dispatch(removeLetter())}
+        onClick={() =>
+          dispatch(game.bulgarian ? removeLetterBg() : removeLetter())
+        }
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

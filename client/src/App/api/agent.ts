@@ -18,7 +18,9 @@ const requests = {
 
 const Word = {
     enWord: () => requests.get("Word/En"),
-    checkEnWord: (word: string) => requests.get("Word/En/" + word)
+    checkEnWord: (word: string) => requests.get("Word/En/" + word),
+    bgWord: () => requests.get("Word/Bg"),
+    checkBgWord: (word: string) => requests.get("Word/Bg/" + word)
 }
 
 const Guesses = {

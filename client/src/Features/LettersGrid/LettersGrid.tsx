@@ -3,7 +3,10 @@ import LettersRow from "../../App/Components/LettersRow";
 import { useAppSelector } from "../../App/Store/configureStore";
 
 export default function LettersGrid() {
-  const { words } = useAppSelector((state) => state.word);
+  const game = useAppSelector((state) => state.game);
+  const  wordsEn  = useAppSelector((state) => state.word.words);
+  const { wordsBg } = useAppSelector((state) => state.word);
+  const words = game.bulgarian ? wordsBg : wordsEn;
   return (
     <Box
       margin={"10px auto"}
