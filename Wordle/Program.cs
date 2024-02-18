@@ -1,6 +1,8 @@
 using Contracts;
 using Entities;
 using Entities.DBInit;
+using Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services.Attempts;
 using Services.Guesses;
@@ -24,6 +26,14 @@ builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
 builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
 builder.Services.AddScoped<ICurrentGuesses, CurrentGuessesService>();
 builder.Services.AddScoped<IWordAttempt, WordAttemptService>();
+builder.Services.AddIdentityCore<User>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<WordleDbContext>();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();
@@ -49,12 +59,13 @@ app.MapControllers();
 
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<WordleDbContext>();
+var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
 try
 {
-    context.Database.Migrate();
-    DBInitializor.Initialize(context);
+    await context.Database.MigrateAsync();
+    await DBInitializor.Initialize(context, userManager);
 }
 catch (Exception ex)
 {
