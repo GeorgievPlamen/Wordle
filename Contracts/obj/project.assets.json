@@ -1331,11 +1331,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
+      "projectUniqueName": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
       "projectName": "Contracts",
-      "projectPath": "d:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
+      "projectPath": "D:\\Projects\\Wordle\\Contracts\\Contracts.csproj",
       "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-      "outputPath": "d:\\Projects\\Wordle\\Contracts\\obj\\",
+      "outputPath": "D:\\Projects\\Wordle\\Contracts\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",

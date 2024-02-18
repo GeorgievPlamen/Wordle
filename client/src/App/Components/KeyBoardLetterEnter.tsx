@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import agent from "../api/agent";
 import { completeWord, completeWordBg } from "../../Features/Game/wordSlice";
-import { useState } from "react";
 import { addValue, addValueBg } from "../../Features/LettersGrid/lettersSlice";
 
 interface Props {
@@ -12,15 +11,14 @@ interface Props {
 
 export default function KeyBoardLetterEnter() {
   const currenWordEn = useAppSelector((state) => state.word.currentWordEn);
+  const currenWordBg = useAppSelector((state) => state.word.currentWordBg);
   const wordsEn = useAppSelector((state) => state.word.words);
   const wordsBg = useAppSelector((state) => state.word.wordsBg);
   const game = useAppSelector((state) => state.game);
   const words = game.bulgarian ? wordsBg : wordsEn;
-  const [currentWordBg, setCurrentWordBg] = useState(0);
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
-    console.log(words[currenWordEn].letters.length);
     if (words[currenWordEn].letters.length === 5 && currenWordEn < 5) {
       try {
         await agent.Word.checkEnWord(words[currenWordEn].letters).then(
@@ -44,10 +42,10 @@ export default function KeyBoardLetterEnter() {
   };
 
   const handleWordInputBg = async () => {
-    console.log(words[currentWordBg].letters.length);
-    if (words[currentWordBg].letters.length === 5 && currentWordBg < 5) {
+    console.log(words[currenWordBg].letters.length);
+    if (words[currenWordBg].letters.length === 5 && currenWordBg < 5) {
       try {
-        await agent.Word.checkBgWord(words[currentWordBg].letters).then(
+        await agent.Word.checkBgWord(words[currenWordBg].letters).then(
           async (data: Props) => {
             for (let i = 0; i < 5; i++) {
               //loop trough all letters and add values with dispatch
@@ -59,7 +57,6 @@ export default function KeyBoardLetterEnter() {
               );
             }
             dispatch(completeWordBg({ values: data.values }));
-            setCurrentWordBg(currentWordBg + 1);
           }
         );
       } catch (error) {

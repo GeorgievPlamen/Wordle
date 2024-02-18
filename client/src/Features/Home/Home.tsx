@@ -3,9 +3,11 @@ import logo from "/wordle-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import { toggleDisplay } from "../HowToPlay/howToPlaySlice";
+import { logOut } from "../Account/accountSlice";
 
 export default function Home() {
   const game = useAppSelector((state) => state.game);
+  const { user } = useAppSelector((state) => state.account);
   const nav = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -73,20 +75,39 @@ export default function Home() {
           >
             {game.bulgarian ? "Играй" : "Play"}
           </Button>
-          <Button
-            color="secondary"
-            variant="outlined"
-            sx={{
-              margin: "10px",
-              width: "130px",
-              borderRadius: "50px",
-              borderColor: "#656565",
-            }}
-          >
-            <Typography color={"textPrimary"} fontSize={"15px"}>
-              {game.bulgarian ? "Влез" : "Log In"}
-            </Typography>
-          </Button>
+          {user === null ? (
+            <Button
+              onClick={() => nav("/login")}
+              color="secondary"
+              variant="outlined"
+              sx={{
+                margin: "10px",
+                width: "130px",
+                borderRadius: "50px",
+                borderColor: "#656565",
+              }}
+            >
+              <Typography color={"textPrimary"} fontSize={"15px"}>
+                {game.bulgarian ? "Влез" : "Log in"}
+              </Typography>
+            </Button>
+          ) : (
+            <Button
+              onClick={() => dispatch(logOut())}
+              color="secondary"
+              variant="outlined"
+              sx={{
+                margin: "10px",
+                width: "130px",
+                borderRadius: "50px",
+                borderColor: "#656565",
+              }}
+            >
+              <Typography color={"textPrimary"} fontSize={"15px"}>
+                {game.bulgarian ? "Излез" : "Log out"}
+              </Typography>
+            </Button>
+          )}
           <Button
             onClick={() => dispatch(toggleDisplay())}
             color="secondary"

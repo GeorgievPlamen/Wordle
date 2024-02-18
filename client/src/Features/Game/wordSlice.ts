@@ -50,6 +50,22 @@ export const wordSlice = createSlice({
     name: "word",
     initialState,
     reducers: {
+        init: (state, action: PayloadAction<{attemptEn: number, attemptBg: number, wordsEn: Word[], wordsBg: Word[]}>) => {
+            for (let i = 0; i < action.payload.wordsEn.length;i++)
+            {
+                state.words[i].letters = action.payload.wordsEn[i].letters;
+                state.words[i].completed = action.payload.wordsEn[i].completed;
+                state.words[i].values = action.payload.wordsEn[i].values;
+            }
+            for (let i = 0; i < action.payload.wordsBg.length;i++)
+            {
+                state.wordsBg[i].letters = action.payload.wordsBg[i].letters;
+                state.wordsBg[i].completed = action.payload.wordsBg[i].completed;
+                state.wordsBg[i].values = action.payload.wordsBg[i].values;
+            }
+            state.currentWordEn = action.payload.attemptEn;
+            state.currentWordBg = action.payload.attemptBg;
+        },
         addLetter: (state, action) => {
             if (state.completed) 
             {
@@ -280,4 +296,12 @@ export const wordSlice = createSlice({
     }
 })
 
-export const {addLetter,addLetterBg , removeLetter, removeLetterBg, completeWord, completeWordBg} = wordSlice.actions;
+export const {
+    addLetter,
+    addLetterBg,
+    removeLetter,
+    removeLetterBg,
+    completeWord,
+    completeWordBg,
+    init
+} = wordSlice.actions;

@@ -17,15 +17,16 @@ import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import { toggleDisplay } from "../../Features/HowToPlay/howToPlaySlice";
 import { toggleStatsDisplay } from "../../Features/Statistics/statisticsSlice";
 import { toggleDarkMode, toggleLanguage } from "../../Features/Game/gameSlice";
+import { logOut } from "../../Features/Account/accountSlice";
 
 export default function Navbar() {
   const game = useAppSelector((state) => state.game);
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-
-  const dispatch = useAppDispatch();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -110,16 +111,29 @@ export default function Navbar() {
                     {game.bulgarian ? "Източник" : "Source"}
                   </Typography>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseNavMenu();
-                    navigate("/");
-                  }}
-                >
-                  <Typography textAlign="center">
-                    {game.bulgarian ? "Излез" : "Logout"}
-                  </Typography>
-                </MenuItem>
+                {user === null ? (
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseNavMenu();
+                      navigate("/login");
+                    }}
+                  >
+                    <Typography textAlign="center">
+                      {game.bulgarian ? "Влез" : "Log in"}
+                    </Typography>
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseNavMenu();
+                      dispatch(logOut());
+                    }}
+                  >
+                    <Typography textAlign="center">
+                      {game.bulgarian ? "Излез" : "Log out"}
+                    </Typography>
+                  </MenuItem>
+                )}
               </Menu>
             </Box>
             <Typography

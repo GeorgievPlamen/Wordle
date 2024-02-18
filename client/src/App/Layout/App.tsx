@@ -4,11 +4,19 @@ import HowToPlay from "../../Features/HowToPlay/HowToPlay";
 import Statistics from "../../Features/Statistics/Statistics";
 import "../../styles.css";
 import { Outlet } from "react-router-dom";
-import { useAppSelector } from "../Store/configureStore";
+import { useAppDispatch, useAppSelector } from "../Store/configureStore";
+import { useEffect } from "react";
+import { fetchCurrentUser } from "../../Features/Account/accountSlice";
 
 function App() {
   const game = useAppSelector((state) => state.game);
+  const dispatch = useAppDispatch();
   const colorMode = game.darkMode ? "dark" : "light";
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   const theme = createTheme({
     palette: {
       mode: colorMode,

@@ -5,6 +5,7 @@ import { lettersSlice } from "../../Features/LettersGrid/lettersSlice";
 import { howToPlaySlice } from "../../Features/HowToPlay/howToPlaySlice";
 import { statsSlice } from "../../Features/Statistics/statisticsSlice";
 import { gameSlice } from "../../Features/Game/gameSlice";
+import { accountSlice } from "../../Features/Account/accountSlice";
 
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
         howToPlay: howToPlaySlice.reducer,
         stats: statsSlice.reducer,
         game: gameSlice.reducer,
+        account: accountSlice.reducer,
     }
 })
 

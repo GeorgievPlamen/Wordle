@@ -1,3 +1,4 @@
+using System.Globalization;
 using Contracts;
 using Contracts.DTOs;
 using Contracts.Params;
@@ -170,11 +171,16 @@ namespace Wordle.Controllers
         }
         private static string PrepWord(WordDTO? result, string usedWord)
         {
-            if (result != null && result.Letters != null)
+            if (result != null && result.Letters != null && result.Values != null)
             {
                 foreach (char c in result.Letters)
                 {
                     usedWord += c;
+                }
+                usedWord += ',';
+                foreach (var n in result.Values)
+                {
+                    usedWord += n.ToString();
                 }
             }
 

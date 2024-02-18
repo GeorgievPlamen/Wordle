@@ -37,7 +37,7 @@ namespace Contracts.DTOs
             attempts.FirstGuessBg = userAttempts.FirstGuessBg;
             attempts.SecondGuessBg = userAttempts.SecondGuessBg;
             attempts.ThirdGuessBg = userAttempts.ThirdGuessBg;
-            attempts.FourthGuess = userAttempts.FourthGuessBg;
+            attempts.FourthGuessBg = userAttempts.FourthGuessBg;
             attempts.FifthGuessBg = userAttempts.FifthGuessBg;
             attempts.SixthGuessBg = userAttempts.SixthGuessBg;
         }

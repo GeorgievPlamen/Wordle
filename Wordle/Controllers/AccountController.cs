@@ -23,6 +23,7 @@ namespace Wordle.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
+            Thread.Sleep(500);
             if (loginDTO == null ||
                 loginDTO.Username == null ||
                 loginDTO.Password == null)
