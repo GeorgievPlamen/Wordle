@@ -1,11 +1,15 @@
+using System.Text;
 using Contracts;
 using Entities;
 using Entities.DBInit;
 using Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Services.Attempts;
 using Services.Guesses;
+using Services.JWT;
 using Services.Words;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,13 +30,30 @@ builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
 builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
 builder.Services.AddScoped<ICurrentGuesses, CurrentGuessesService>();
 builder.Services.AddScoped<IWordAttempt, WordAttemptService>();
+builder.Services.AddScoped<ITokenJWT, TokenJWTService>();
 builder.Services.AddIdentityCore<User>(opt =>
 {
     opt.User.RequireUniqueEmail = true;
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<WordleDbContext>();
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["JWTSettings:TokenKey"] ??
+                    throw new ArgumentNullException("No signing key found")
+                )
+            )
+        };
+    });
 builder.Services.AddAuthorization();
 builder.Services.AddMemoryCache();
 
@@ -54,6 +75,7 @@ app.UseCors(options =>
         .AllowCredentials();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

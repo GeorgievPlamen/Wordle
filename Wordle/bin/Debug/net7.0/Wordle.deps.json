@@ -9,7 +9,6 @@
       "Wordle/1.0.0": {
         "dependencies": {
           "Contracts": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.10",
           "Microsoft.EntityFrameworkCore.Design": "7.0.0",
           "Services": "1.0.0",
@@ -525,7 +524,8 @@
       "Services/1.0.0": {
         "dependencies": {
           "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Entities": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.0"
         },
         "runtime": {
           "Services.dll": {}

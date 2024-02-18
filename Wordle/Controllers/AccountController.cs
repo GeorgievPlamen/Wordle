@@ -1,5 +1,7 @@
+using Contracts;
 using Contracts.DTOs.Identity;
 using Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Wordle.Controllers.Base;
@@ -9,13 +11,17 @@ namespace Wordle.Controllers
     public class AccountController : BaseController
     {
         private readonly UserManager<User> _userManager;
-        public AccountController(UserManager<User> userManager)
+        private readonly ITokenJWT _tokenService;
+        public AccountController(
+            UserManager<User> userManager,
+            ITokenJWT tokenService)
         {
+            _tokenService = tokenService;
             _userManager = userManager;
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(LoginDTO loginDTO)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             if (loginDTO == null ||
                 loginDTO.Username == null ||
@@ -32,7 +38,11 @@ namespace Wordle.Controllers
                 return Unauthorized();
             }
 
-            return user;
+            return new UserDTO
+            {
+                Email = user.Email,
+                Token = await _tokenService.GenerateToken(user)
+            };
         }
 
         [HttpPost("register")]
@@ -63,6 +73,24 @@ namespace Wordle.Controllers
             await _userManager.AddToRoleAsync(user, "Member");
 
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("currentUser")]
+        public async Task<ActionResult<UserDTO>> GetCurrentUser()
+        {
+            var user = await _userManager.FindByNameAsync(
+                User.Identity?.Name ??
+                throw new ArgumentNullException(nameof(User)));
+
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            return new UserDTO
+            {
+                Email = user.Email,
+                Token = await _tokenService.GenerateToken(user)
+            };
         }
     }
 }

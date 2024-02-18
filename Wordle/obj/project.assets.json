@@ -911,7 +911,8 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Contracts": "1.0.0",
-          "Entities": "1.0.0"
+          "Entities": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.0"
         },
         "compile": {
           "bin/placeholder/Services.dll": {}
@@ -2344,7 +2345,6 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Contracts >= 1.0.0",
-      "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "Services >= 1.0.0",
@@ -2397,10 +2397,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": {
-            "target": "Package",
-            "version": "[7.0.0, )"
-          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[7.0.10, )"
