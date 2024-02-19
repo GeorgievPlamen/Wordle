@@ -63,9 +63,17 @@ export const wordSlice = createSlice({
                 state.wordsBg[i].completed = action.payload.wordsBg[i].completed;
                 state.wordsBg[i].values = action.payload.wordsBg[i].values;
             }
-            state.currentWordEn = action.payload.attemptEn;
+            if(action.payload.attemptEn != undefined)
+            {
+                state.currentWordEn = action.payload.attemptEn;
+            }
+            if(action.payload.attemptBg != undefined)
+            {
+                state.currentWordBg = action.payload.attemptBg;
+            }
+            console.log(action.payload.attemptEn);
             state.completed = action.payload.todayCompletedEn;
-            state.currentWordBg = action.payload.attemptBg;
+            
             state.completedBg = action.payload.todayCompletedBg;
         },
         addLetter: (state, action) => {

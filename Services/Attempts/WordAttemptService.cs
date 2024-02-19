@@ -1,7 +1,6 @@
 using Contracts;
 using Contracts.DTOs;
 using Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -37,7 +36,7 @@ namespace Services.Attempts
                 guess = currentUser;
             }
 
-            guess.LastPlayed = DateTime.Today;
+            guess.LastPlayed = DateTime.Today.ToUniversalTime();
 
             if (bulgarian)
             {
@@ -110,7 +109,7 @@ namespace Services.Attempts
                 ?? new GuessesToday { UserId = userId };
 
             //Clear Todays attempts
-            if (userAttempts.LastPlayed != DateTime.Today)
+            if (userAttempts.LastPlayed != DateTime.Today.ToUniversalTime())
             {
                 userAttempts.Attempt = 0;
                 userAttempts.AttemptBg = 0;

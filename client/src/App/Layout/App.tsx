@@ -50,7 +50,7 @@ function App() {
       }
 
       try {
-        dispatch(toggleLoading());
+        dispatch(toggleLoading(true));
         if (userId.length <= 0) {
           return;
         }
@@ -77,10 +77,10 @@ function App() {
               wordsBg,
             })
           );
-          dispatch(toggleLoading());
+          dispatch(toggleLoading(false));
         });
       } catch (error) {
-        dispatch(toggleLoading());
+        dispatch(toggleLoading(false));
       }
     }
     initUser();
@@ -129,7 +129,7 @@ function App() {
         position="top-center"
         hideProgressBar
         theme="colored"
-        autoClose={500}
+        autoClose={750}
       />
       <CssBaseline enableColorScheme />
       <>
@@ -264,7 +264,7 @@ function prepBgGuesses(data: any, wordsBg: Word[]) {
     });
   }
 
-  if (data["fourthGuesBgs"] != null) {
+  if (data["fourthGuessBg"] != null) {
     const guess: string = data["fourthGuessBg"];
     const splittedGuess = guess.split(",");
     const wordLetters = splittedGuess[0];

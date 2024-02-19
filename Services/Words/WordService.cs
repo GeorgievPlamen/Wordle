@@ -38,7 +38,7 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value.ToUpper();
-                    var endOfDay = DateTime.Today.AddDays(1);
+                    var endOfDay = DateTime.Today.AddDays(1).ToUniversalTime();
                     _cache.Set("WordEn", output, endOfDay);
                 }
             }
@@ -55,7 +55,7 @@ namespace Services.Words
                         throw new ArgumentNullException(nameof(result));
                     }
                     output = result.Value;
-                    var endOfDay = DateTime.Today.AddDays(1);
+                    var endOfDay = DateTime.Today.AddDays(1).ToUniversalTime();
                     _cache.Set("WordBg", output, endOfDay);
                 }
             }

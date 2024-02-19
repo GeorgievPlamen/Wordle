@@ -28,8 +28,8 @@ export const gameSlice = createSlice({
         initializeGame: (state) => {
             state.initialized = true;
         },
-        toggleLoading: (state) => {
-            state.loading = !state.loading;
+        toggleLoading: (state, action) => {
+            state.loading = action.payload;
         }
     }
     })

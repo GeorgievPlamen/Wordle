@@ -128,6 +128,12 @@ export default function HowToPlay() {
               ? "Нова загадка се публикува всеки ден в полунощ."
               : "A new puzzle is released daily at midnight."}
           </Typography>
+          <Divider />
+          <Typography marginTop={"20px"}>
+            {languageBg
+              ? "Тест Акаунт/Парола - john Pa$$w0rd"
+              : "Test Account/Password - john Pa$$w0rd"}
+          </Typography>
         </CardContent>
       </Card>
     </Backdrop>

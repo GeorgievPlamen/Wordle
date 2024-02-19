@@ -1,7 +1,5 @@
-using System.Security.Cryptography.X509Certificates;
 using Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace Entities.DBInit
 {

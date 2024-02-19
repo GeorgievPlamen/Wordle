@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 interface Props {
   letters: string[];
   values: number[];
+  wordToday?: string;
+  wordTodayBg?: string;
 }
 
 export default function KeyBoardLetterEnter() {
@@ -20,6 +22,7 @@ export default function KeyBoardLetterEnter() {
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
+    console.log(currenWordEn);
     if (words[currenWordEn].letters.length < 5) {
       toast.error("Not enought letters");
     }
@@ -40,6 +43,9 @@ export default function KeyBoardLetterEnter() {
               );
             }
             dispatch(completeWord({ values: data.values }));
+            if (data.wordTodayBg != null && data.wordTodayBg != undefined) {
+              toast.info(data.wordTodayBg);
+            }
           }
         );
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,7 +57,7 @@ export default function KeyBoardLetterEnter() {
   };
 
   const handleWordInputBg = async () => {
-    if (words[currenWordBg].letters.length === 5 && currenWordBg < 5) {
+    if (words[currenWordBg].letters.length === 5 && currenWordBg < 6) {
       try {
         await agent.Word.checkBgWord(words[currenWordBg].letters).then(
           async (data: Props) => {
@@ -65,9 +71,13 @@ export default function KeyBoardLetterEnter() {
               );
             }
             dispatch(completeWordBg({ values: data.values }));
+            if (data.wordTodayBg != null && data.wordTodayBg != undefined) {
+              toast.info(data.wordTodayBg);
+            }
           }
         );
       } catch (error) {
+        toast.warning("Не е в списъка с думи");
         console.log(error);
       }
     }

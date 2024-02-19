@@ -83,7 +83,17 @@ namespace Wordle.Controllers
             if (attemptDto.Attempt >= 6)
             {
                 await _failedGuess.FailedGuess(userId, false);
-                return Ok(result);
+                var wordEn = await _wordService.GetWord(Language.English);
+                var failed = new FailedDTO(
+                    result.Letters ??
+                     throw new ArgumentNullException(nameof(result.Letters)),
+                    result.Values ??
+                     throw new ArgumentNullException(nameof(result.Values)),
+                    wordEn,
+                    null
+                );
+
+                return Ok(failed);
             }
 
             //Correct
@@ -125,7 +135,17 @@ namespace Wordle.Controllers
             if (attemptDto.AttemptBg >= 6)
             {
                 await _failedGuess.FailedGuess(userId, true);
-                return Ok(result);
+                var wordBg = await _wordService.GetWord(Language.Bulgarian);
+                var failed = new FailedDTO(
+                    result.Letters ??
+                     throw new ArgumentNullException(nameof(result.Letters)),
+                    result.Values ??
+                     throw new ArgumentNullException(nameof(result.Values)),
+                    null,
+                    wordBg
+                );
+
+                return Ok(failed);
             }
 
             //Handle Correct
@@ -142,7 +162,7 @@ namespace Wordle.Controllers
         private string CreateUserIdCookie()
         {
             string? userId = Guid.NewGuid().ToString();
-            Response.Cookies.Append("userId", userId, new CookieOptions { Expires = DateTime.Now.AddDays(30) });
+            Response.Cookies.Append("userId", userId, new CookieOptions { Expires = DateTime.UtcNow.AddDays(30) });
             return userId;
         }
 

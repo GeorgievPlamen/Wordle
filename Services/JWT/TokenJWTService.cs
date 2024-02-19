@@ -57,7 +57,7 @@ namespace Services.JWT
                 issuer: null,
                 audience: null,
                 claims: claims,
-                expires: DateTime.Now.AddDays(7),
+                expires: DateTime.Today.AddDays(30).ToUniversalTime(),
                 signingCredentials: creds
             );
 

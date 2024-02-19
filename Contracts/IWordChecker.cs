@@ -1,5 +1,4 @@
 using Contracts.DTOs;
-using Contracts.Params;
 
 namespace Contracts
 {

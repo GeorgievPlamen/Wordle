@@ -1,7 +1,6 @@
 using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Services.Guesses
 {

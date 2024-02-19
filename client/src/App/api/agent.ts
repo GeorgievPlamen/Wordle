@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const sleep = () => new Promise (resolve => setTimeout(resolve,500));
 
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -16,7 +16,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use( async response => {
-    await sleep();
+    if (import.meta.env.DEV) {await sleep();}
     return response;
 }, (error: AxiosError) => {
     const {data, status} = error.response as AxiosResponse;
