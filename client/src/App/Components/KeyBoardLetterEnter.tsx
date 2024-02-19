@@ -42,7 +42,6 @@ export default function KeyBoardLetterEnter() {
   };
 
   const handleWordInputBg = async () => {
-    console.log(words[currenWordBg].letters.length);
     if (words[currenWordBg].letters.length === 5 && currenWordBg < 5) {
       try {
         await agent.Word.checkBgWord(words[currenWordBg].letters).then(

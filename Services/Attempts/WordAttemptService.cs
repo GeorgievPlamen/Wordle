@@ -25,18 +25,24 @@ namespace Services.Attempts
                 .FirstOrDefaultAsync(x => x.UserId == userId);
             if (currentUser == null)
             {
-                guess = new GuessesToday { UserId = userId };
+                guess = new GuessesToday
+                {
+                    UserId = userId,
+                };
                 await _context.AddAsync(guess);
             }
             else
             {
                 guess = currentUser;
+
             }
+
+            guess.LastPlayed = DateTime.Today;
 
             if (bulgarian)
             {
-                guess.attemptBg++;
-                switch (guess.attemptBg)
+                guess.AttemptBg++;
+                switch (guess.AttemptBg)
                 {
                     case (1):
                         guess.FirstGuessBg = word;
@@ -60,8 +66,8 @@ namespace Services.Attempts
             }
             else
             {
-                guess.attempt++;
-                switch (guess.attempt)
+                guess.Attempt++;
+                switch (guess.Attempt)
                 {
                     case (1):
                         guess.FirstGuess = word;
@@ -94,6 +100,28 @@ namespace Services.Attempts
             GuessesToday userAttempts = await _context.GuessesToday
                 .FirstOrDefaultAsync(x => x.UserId == userId)
                 ?? new GuessesToday { UserId = userId };
+
+            //Clear Todays attempts
+            if (userAttempts.LastPlayed != DateTime.Today)
+            {
+                userAttempts.Attempt = 0;
+                userAttempts.AttemptBg = 0;
+                userAttempts.Completed = false;
+                userAttempts.CompletedBg = false;
+                userAttempts.FirstGuess = null;
+                userAttempts.SecondGuess = null;
+                userAttempts.ThirdGuess = null;
+                userAttempts.FourthGuess = null;
+                userAttempts.FifthGuess = null;
+                userAttempts.SixthGuess = null;
+                userAttempts.FirstGuessBg = null;
+                userAttempts.SecondGuessBg = null;
+                userAttempts.ThirdGuessBg = null;
+                userAttempts.FourthGuessBg = null;
+                userAttempts.FifthGuessBg = null;
+                userAttempts.SixthGuessBg = null;
+                await _context.SaveChangesAsync();
+            }
 
             attempts.MapAttempts(userAttempts);
 

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TestGetWord from "../../App/Components/TestGetWord";
 import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import KeyBoardEn from "../Keyboard/KeyBoardEn";
@@ -9,8 +9,6 @@ import agent from "../../App/api/agent";
 import { addStats } from "../Statistics/statisticsSlice";
 import { Cookies } from "react-cookie";
 import KeyBoardBg from "../Keyboard/KeyBoardBg";
-import { init } from "./wordSlice";
-import { stringToNumberArray } from "../../App/helper/helper";
 
 interface GuessesProps {
   first: number;
@@ -29,55 +27,13 @@ interface GuessesProps {
   failedBg: number;
 }
 
-interface Word {
-  letters: string;
-  completed: boolean;
-  values: number[];
-}
-
 export default function Game() {
   const game = useAppSelector((state) => state.game);
-  const [loading, SetLoading] = useState(false);
   const word = useAppSelector((state) => state.word);
   const wordCompleted = word.completed;
   const dispatch = useAppDispatch();
   const cookies = new Cookies();
   const userId = cookies.get("userId");
-  console.log(loading);
-
-  useEffect(() => {
-    async function initUser() {
-      try {
-        SetLoading(true);
-        await agent.Guesses.userAttemptsToday(userId).then((data) => {
-          console.log(data);
-
-          const currentWordEn: number = data["attempt"];
-          const currentWordBg: number = data["attemptBg"];
-
-          const wordsEn: Word[] = [];
-          const wordsBg: Word[] = [];
-
-          prepEnGuesses(data, wordsEn);
-          prepBgGuesses(data, wordsBg);
-
-          dispatch(
-            init({
-              attemptEn: currentWordEn,
-              attemptBg: currentWordBg,
-              wordsEn,
-              wordsBg,
-            })
-          );
-          SetLoading(false);
-        });
-      } catch (error) {
-        console.log(error);
-        SetLoading(false);
-      }
-    }
-    initUser();
-  }, [dispatch, userId]);
 
   useEffect(() => {
     async function fetch() {
@@ -130,164 +86,4 @@ export default function Game() {
       </Box>
     </>
   );
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function prepEnGuesses(data: any, wordsEn: Word[]) {
-  if (data["firstGuess"] != null) {
-    const guess: string = data["firstGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["secondGuess"] != null) {
-    const guess: string = data["secondGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["thirdGuess"] != null) {
-    const guess: string = data["thirdGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["fourthGuess"] != null) {
-    const guess: string = data["fourthGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["fifthGuess"] != null) {
-    const guess: string = data["fifthGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["sixthGuess"] != null) {
-    const guess: string = data["sixthGuess"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsEn.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function prepBgGuesses(data: any, wordsBg: Word[]) {
-  if (data["firstGuessBg"] != null) {
-    const guess: string = data["firstGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["secondGuessBg"] != null) {
-    const guess: string = data["secondGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["thirdGuessBg"] != null) {
-    const guess: string = data["thirdGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["fourthGuesBgs"] != null) {
-    const guess: string = data["fourthGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["fifthGuessBg"] != null) {
-    const guess: string = data["fifthGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
-
-  if (data["sixthGuessBg"] != null) {
-    const guess: string = data["sixthGuessBg"];
-    const splittedGuess = guess.split(",");
-    const wordLetters = splittedGuess[0];
-    const wordValues = stringToNumberArray(splittedGuess[1]);
-
-    wordsBg.push({
-      letters: wordLetters,
-      completed: true,
-      values: wordValues,
-    });
-  }
 }

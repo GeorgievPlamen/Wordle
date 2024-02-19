@@ -6,6 +6,8 @@ namespace Contracts.DTOs
     {
         public int Attempt { get; set; }
         public int AttemptBg { get; set; }
+        public bool completed { get; set; }
+        public bool completedBg { get; set; }
         public string? FirstGuess { get; set; }
         public string? SecondGuess { get; set; }
         public string? ThirdGuess { get; set; }
@@ -26,8 +28,8 @@ namespace Contracts.DTOs
     {
         public static void MapAttempts(this AttemptsDTO attempts, GuessesToday userAttempts)
         {
-            attempts.Attempt = userAttempts.attempt;
-            attempts.AttemptBg = userAttempts.attemptBg;
+            attempts.Attempt = userAttempts.Attempt;
+            attempts.AttemptBg = userAttempts.AttemptBg;
             attempts.FirstGuess = userAttempts.FirstGuess;
             attempts.SecondGuess = userAttempts.SecondGuess;
             attempts.ThirdGuess = userAttempts.ThirdGuess;
@@ -40,6 +42,8 @@ namespace Contracts.DTOs
             attempts.FourthGuessBg = userAttempts.FourthGuessBg;
             attempts.FifthGuessBg = userAttempts.FifthGuessBg;
             attempts.SixthGuessBg = userAttempts.SixthGuessBg;
+            attempts.completed = userAttempts.Completed;
+            attempts.completedBg = userAttempts.CompletedBg;
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Wordle\\Entities\\Entities.csproj": {}
+    "d:\\Projects\\Wordle\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Wordle\\Entities\\Entities.csproj": {
+    "d:\\Projects\\Wordle\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Wordle\\Entities\\Entities.csproj",
+        "projectUniqueName": "d:\\Projects\\Wordle\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "D:\\Projects\\Wordle\\Entities\\Entities.csproj",
+        "projectPath": "d:\\Projects\\Wordle\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\GRIGS\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Wordle\\Entities\\obj\\",
+        "outputPath": "d:\\Projects\\Wordle\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\GRIGS\\AppData\\Roaming\\NuGet\\NuGet.Config",

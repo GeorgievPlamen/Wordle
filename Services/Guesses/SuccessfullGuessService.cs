@@ -19,7 +19,11 @@ namespace Services.Guesses
 
         public async Task<bool> SuccessfullGuess(string userId, int guessAttempt, bool bulgarian)
         {
-            GuessesEn? guess = await _context.GuessesEn
+            var guess = await _context.GuessesEn
+                .Where(x => x.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            var guessToday = await _context.GuessesToday
                 .Where(x => x.UserId == userId)
                 .FirstOrDefaultAsync();
 
@@ -49,6 +53,8 @@ namespace Services.Guesses
                             guessTemp.SixthBg = 1;
                             break;
                     }
+                    if (guessToday != null)
+                        guessToday.CompletedBg = true;
                 }
                 else
                 {
@@ -73,8 +79,9 @@ namespace Services.Guesses
                             guessTemp.Sixth = 1;
                             break;
                     }
+                    if (guessToday != null)
+                        guessToday.Completed = true;
                 }
-
 
                 await _context.GuessesEn.AddAsync(guessTemp);
                 await _context.SaveChangesAsync();
@@ -116,6 +123,8 @@ namespace Services.Guesses
                         await _context.SaveChangesAsync();
                         break;
                 }
+                if (guessToday != null)
+                    guessToday.CompletedBg = true;
             }
             else
             {
@@ -146,6 +155,8 @@ namespace Services.Guesses
                         await _context.SaveChangesAsync();
                         break;
                 }
+                if (guessToday != null)
+                    guessToday.Completed = true;
             }
 
             return true;

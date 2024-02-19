@@ -50,7 +50,7 @@ export const wordSlice = createSlice({
     name: "word",
     initialState,
     reducers: {
-        init: (state, action: PayloadAction<{attemptEn: number, attemptBg: number, wordsEn: Word[], wordsBg: Word[]}>) => {
+        init: (state, action: PayloadAction<{todayCompletedEn: boolean,todayCompletedBg: boolean, attemptEn: number, attemptBg: number, wordsEn: Word[], wordsBg: Word[]}>) => {
             for (let i = 0; i < action.payload.wordsEn.length;i++)
             {
                 state.words[i].letters = action.payload.wordsEn[i].letters;
@@ -64,7 +64,9 @@ export const wordSlice = createSlice({
                 state.wordsBg[i].values = action.payload.wordsBg[i].values;
             }
             state.currentWordEn = action.payload.attemptEn;
+            state.completed = action.payload.todayCompletedEn;
             state.currentWordBg = action.payload.attemptBg;
+            state.completedBg = action.payload.todayCompletedBg;
         },
         addLetter: (state, action) => {
             if (state.completed) 
@@ -266,22 +268,27 @@ export const wordSlice = createSlice({
             if (!state.wordsBg[0].completed){
                 state.wordsBg[0].values = values;
                 state.wordsBg[0].completed = true;
+                state.currentWordBg++;
             } else if (!state.wordsBg[1].completed) {
                 state.wordsBg[1].values = values;
                 state.wordsBg[1].completed = true;
+                state.currentWordBg++;
             } else if (!state.wordsBg[2].completed) {
                 state.wordsBg[2].values = values;
                 state.wordsBg[2].completed = true;
+                state.currentWordBg++;
             } else if (!state.wordsBg[3].completed) {
                 state.wordsBg[3].values = values;
                 state.wordsBg[3].completed = true;
+                state.currentWordBg++;
             } else if (!state.wordsBg[4].completed) {
                 state.wordsBg[4].values = values;
                 state.wordsBg[4].completed = true;
-
+                state.currentWordBg++;
             } else if (!state.wordsBg[5].completed) {
                 state.wordsBg[5].values = values;
                 state.wordsBg[5].completed = true;
+                state.currentWordBg++;
             }
 
             if(values[0] == 0 

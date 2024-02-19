@@ -8,6 +8,7 @@ interface Props {
 }
 export default function KeyBoardLetter({ letter }: Props) {
   const game = useAppSelector((state) => state.game);
+  const { completed, completedBg } = useAppSelector((state) => state.word);
   const letterWidth = game.bulgarian ? "7vw" : "8vw";
   const { letters, lettersBg } = useAppSelector((state) => state.letters);
   const [letterValue, setLetterValue] = useState(
@@ -37,9 +38,15 @@ export default function KeyBoardLetter({ letter }: Props) {
   return (
     <Box>
       <Button
-        onClick={() =>
-          dispatch(game.bulgarian ? addLetterBg(letter) : addLetter(letter))
-        }
+        onClick={() => {
+          console.log(game.bulgarian + " bg " + completedBg);
+          console.log(game.bulgarian + " en " + completed);
+          if (game.bulgarian && completedBg || !game.bulgarian && completed) {
+            return;
+          } else {
+            dispatch(game.bulgarian ? addLetterBg(letter) : addLetter(letter));
+          }
+        }}
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

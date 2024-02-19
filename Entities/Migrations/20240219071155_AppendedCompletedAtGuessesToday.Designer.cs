@@ -3,6 +3,7 @@ using System;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(WordleDbContext))]
-    partial class WordleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219071155_AppendedCompletedAtGuessesToday")]
+    partial class AppendedCompletedAtGuessesToday
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -84,7 +87,7 @@ namespace Entities.Migrations
                     b.Property<bool>("Completed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("CompletedBg")
+                    b.Property<bool>("CopmletedBg")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FifthGuess")
@@ -103,9 +106,6 @@ namespace Entities.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FourthGuessBg")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("LastPlayed")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecondGuess")
@@ -254,13 +254,13 @@ namespace Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5cd1455f-1ce7-4ef0-b23c-992d660d3e47",
+                            Id = "abd79064-7a9d-40a4-b93f-4cb1d0a8a1a4",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "449c90fc-e648-4a05-aee4-ffc120280773",
+                            Id = "1a18b1d1-517e-4a6b-bf3b-040f01d4b5d5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

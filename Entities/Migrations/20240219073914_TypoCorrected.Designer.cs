@@ -3,6 +3,7 @@ using System;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(WordleDbContext))]
-    partial class WordleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219073914_TypoCorrected")]
+    partial class TypoCorrected
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -103,9 +106,6 @@ namespace Entities.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FourthGuessBg")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("LastPlayed")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecondGuess")
@@ -254,13 +254,13 @@ namespace Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5cd1455f-1ce7-4ef0-b23c-992d660d3e47",
+                            Id = "e1e39460-9f90-4e8b-a1f7-bbc841d04835",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "449c90fc-e648-4a05-aee4-ffc120280773",
+                            Id = "f04b2b11-eb4d-4fa5-986c-8e3ef671ff9d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

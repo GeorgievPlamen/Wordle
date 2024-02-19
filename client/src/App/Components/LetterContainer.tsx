@@ -14,7 +14,6 @@ export default function LetterContainer({ letter, letterValue }: Props) {
     setBackgroundColor(color);
   };
   useEffect(() => {
-    game.bulgarian;
     if (letterValue === undefined) {
       handleBackgroundColorChange("#");
     }
