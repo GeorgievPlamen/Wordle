@@ -80,3 +80,4 @@ D:\Projects\Wordle\Wordle\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 D:\Projects\Wordle\Wordle\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Projects\Wordle\Wordle\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 D:\Projects\Wordle\Wordle\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projects\Wordle\Wordle\bin\Debug\net7.0\Wordle.staticwebassets.runtime.json

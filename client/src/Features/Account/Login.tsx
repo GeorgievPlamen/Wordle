@@ -45,7 +45,6 @@ export default function Login() {
         nav("/");
       } else {
         toast.error(languageBg ? "Неуспешен вход" : "Login Failed");
-        console.log("Login Failed");
       }
     } catch (error) {
       console.log(error);

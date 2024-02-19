@@ -38,7 +38,6 @@ export const fetchCurrentUser = createAsyncThunk<User>(
             localStorage.setItem("user", JSON.stringify(user));
             return user;
         } catch (error: any) {
-            console.log("getting error when waiting for agent" + error)
             return  thunkAPI.rejectWithValue({error: error.data})
         }
     },{

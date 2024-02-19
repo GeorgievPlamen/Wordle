@@ -1,11 +1,54 @@
 {
   "Version": 1,
-  "Hash": "3fihAB+NfgVRoJqe2K9krXCImb6ZpLVjMg/FGh+A/eI=",
+  "Hash": "qL3ytskIuv6Yp96TosD6dxCNy6U5uUHlSvgP28KH+8Q=",
   "Source": "Wordle",
   "BasePath": "_content/Wordle",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Wordle\\wwwroot",
+      "Source": "Wordle",
+      "ContentRoot": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\",
+      "BasePath": "_content/Wordle",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\dictBg.txt",
+      "SourceId": "Wordle",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\",
+      "BasePath": "_content/Wordle",
+      "RelativePath": "dictBg.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\dictBg.txt"
+    },
+    {
+      "Identity": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\dictEn.txt",
+      "SourceId": "Wordle",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\",
+      "BasePath": "_content/Wordle",
+      "RelativePath": "dictEn.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\dictEn.txt"
+    }
+  ]
 }

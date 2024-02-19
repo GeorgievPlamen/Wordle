@@ -39,9 +39,7 @@ export default function KeyBoardLetter({ letter }: Props) {
     <Box>
       <Button
         onClick={() => {
-          console.log(game + " bg " + completedBg);
-          console.log(game + " en " + completed);
-          if (game && completedBg || !game && completed) {
+          if ((game && completedBg) || (!game && completed)) {
             return;
           } else {
             dispatch(game ? addLetterBg(letter) : addLetter(letter));

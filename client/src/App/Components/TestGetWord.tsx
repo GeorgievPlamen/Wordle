@@ -16,9 +16,7 @@ export default function TestGetWord() {
   };
 
   const handleGetUserAttempts = async () => {
-    await agent.Guesses.userGuesses(cookies.get("userId")).then((data) =>
-      console.log(data)
-    );
+    await agent.Guesses.userGuesses(cookies.get("userId"));
   };
 
   return (

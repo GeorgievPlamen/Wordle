@@ -77,7 +77,7 @@ app.UseCors(options =>
         .AllowAnyMethod()
         .AllowCredentials();
 });
-
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
