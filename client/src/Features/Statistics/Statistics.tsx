@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Box,
   Button,
   Card,
@@ -16,6 +17,7 @@ import { toggleStatsDisplay } from "./statisticsSlice";
 
 export default function Statistics() {
   const stats = useAppSelector((state) => state.stats);
+  const open = stats.display === "block" ? true : false;
   const languageBg = useAppSelector((state) => state.game.bulgarian);
   const dispatch = useAppDispatch();
   const totalEn =
@@ -60,76 +62,78 @@ export default function Statistics() {
   ];
 
   return (
-    <Card
-      sx={{
-        display: stats.display,
-        minWidth: 275,
-        maxWidth: 360,
-        position: "absolute",
-        zIndex: "999",
-        left: "50%",
-        marginLeft: { xs: "-180px" },
-        top: "10vh",
-      }}
-    >
-      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h4" fontWeight={"bold"} sx={{}}>
-          {languageBg ? "Статистика" : "Statistics"}
-        </Typography>
-        <Button
-          onClick={() => dispatch(toggleStatsDisplay())}
-          sx={{ justifySelf: "flex-end", width: "40px" }}
-        >
-          <Icon color="action" component={close} />
-        </Button>
-      </CardActions>
-      <CardContent>
-        <Box
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"space-around"}
-          alignItems={"center"}
-        >
-          <Box>
-            <Typography variant="h4" textAlign={"center"}>
-              {(languageBg ? totalBg : totalEn) || 0}
-            </Typography>
-            <Typography textAlign={"center"}>
-              {languageBg ? "Играни" : "Played"}
-            </Typography>
+    <Backdrop open={open} sx={{ zIndex: "999" }}>
+      <Card
+        sx={{
+          display: stats.display,
+          minWidth: 275,
+          maxWidth: 360,
+          position: "absolute",
+          zIndex: "999",
+          left: "50%",
+          marginLeft: { xs: "-180px" },
+          top: "10vh",
+        }}
+      >
+        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography variant="h4" fontWeight={"bold"} sx={{}}>
+            {languageBg ? "Статистика" : "Statistics"}
+          </Typography>
+          <Button
+            onClick={() => dispatch(toggleStatsDisplay())}
+            sx={{ justifySelf: "flex-end", width: "40px" }}
+          >
+            <Icon color="action" component={close} />
+          </Button>
+        </CardActions>
+        <CardContent>
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"space-around"}
+            alignItems={"center"}
+          >
+            <Box>
+              <Typography variant="h4" textAlign={"center"}>
+                {(languageBg ? totalBg : totalEn) || 0}
+              </Typography>
+              <Typography textAlign={"center"}>
+                {languageBg ? "Играни" : "Played"}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h4" textAlign={"center"}>
+                {((languageBg ? winRatioBg : winRatioEn) || 0).toFixed(1)}
+              </Typography>
+              <Typography textAlign={"center"}>
+                {languageBg ? "Познати" : "Win"} %
+              </Typography>
+            </Box>
           </Box>
-          <Box>
-            <Typography variant="h4" textAlign={"center"}>
-              {((languageBg ? winRatioBg : winRatioEn) || 0).toFixed(1)}
-            </Typography>
-            <Typography textAlign={"center"}>
-              {languageBg ? "Познати" : "Win"} %
-            </Typography>
-          </Box>
-        </Box>
-        <Typography variant="h6" fontWeight={"bold"} marginTop={"10px"}>
-          {languageBg ? "Разпределение на опити" : "Guess Distribution"}
-        </Typography>
-        <BarChart
-          width={280}
-          height={230}
-          layout="horizontal"
-          yAxis={[
-            {
-              scaleType: "band",
-              data: ["1", "2", "3", "4", "5", "6"],
-            },
-          ]}
-          series={series.slice(0)}
-          bottomAxis={null}
-        />
-        <Divider />
-        <Typography marginTop={"20px"} textAlign={"center"}>
-          {languageBg
-            ? "Колко пъти можеш да познаеш?"
-            : "How many wins can you get?"}
-        </Typography>
-      </CardContent>
-    </Card>
+          <Typography variant="h6" fontWeight={"bold"} marginTop={"10px"}>
+            {languageBg ? "Разпределение на опити" : "Guess Distribution"}
+          </Typography>
+          <BarChart
+            width={280}
+            height={230}
+            layout="horizontal"
+            yAxis={[
+              {
+                scaleType: "band",
+                data: ["1", "2", "3", "4", "5", "6"],
+              },
+            ]}
+            series={series.slice(0)}
+            bottomAxis={null}
+          />
+          <Divider />
+          <Typography marginTop={"20px"} textAlign={"center"}>
+            {languageBg
+              ? "Колко пъти можеш да познаеш?"
+              : "How many wins can you get?"}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Backdrop>
   );
 }

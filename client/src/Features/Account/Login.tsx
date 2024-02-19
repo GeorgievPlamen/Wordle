@@ -14,7 +14,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
-import { signInUser } from "./accountSlice";
+import { setUsername, signInUser } from "./accountSlice";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const nav = useNavigate();
@@ -32,8 +33,23 @@ export default function Login() {
   const labelColor = darkMode ? "#ddd" : "#121213";
 
   async function submitForm(data: FieldValues) {
-    await dispatch(signInUser(data));
-    nav("/game");
+    try {
+      const actionResult = await dispatch(signInUser(data));
+
+      if (signInUser.fulfilled.match(actionResult)) {
+        toast.success(languageBg ? "Успешен вход" : "Login Successfull");
+        if (localStorage["user"]) {
+          const user = JSON.parse(localStorage["user"]);
+          dispatch(setUsername(user["username"]));
+        }
+        nav("/");
+      } else {
+        toast.error(languageBg ? "Неуспешен вход" : "Login Failed");
+        console.log("Login Failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -81,7 +97,9 @@ export default function Login() {
                 }}
                 autoFocus
                 {...register("username", {
-                  required: "Username is required",
+                  required: languageBg
+                    ? "Потребителско име е задължително"
+                    : "Username is required",
                 })}
                 error={!!errors.username}
                 helperText={errors.username?.message as string}
@@ -95,7 +113,9 @@ export default function Login() {
                 }}
                 type="password"
                 {...register("password", {
-                  required: "Password is required",
+                  required: languageBg
+                    ? "Парола е задължителна"
+                    : "Password is required",
                 })}
                 error={!!errors.password}
                 helperText={errors.password?.message as string}

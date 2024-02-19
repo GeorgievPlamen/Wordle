@@ -23,7 +23,6 @@ namespace Wordle.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            Thread.Sleep(500);
             if (loginDTO == null ||
                 loginDTO.Username == null ||
                 loginDTO.Password == null)
@@ -41,6 +40,7 @@ namespace Wordle.Controllers
 
             return new UserDTO
             {
+                Username = user.UserName,
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user)
             };
@@ -89,6 +89,7 @@ namespace Wordle.Controllers
 
             return new UserDTO
             {
+                Username = user.UserName,
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user)
             };

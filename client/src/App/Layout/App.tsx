@@ -5,12 +5,18 @@ import Statistics from "../../Features/Statistics/Statistics";
 import "../../styles.css";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../Store/configureStore";
-import { useEffect } from "react";
-import { fetchCurrentUser } from "../../Features/Account/accountSlice";
+import { useEffect, useState } from "react";
+import {
+  fetchCurrentUser,
+  setUsername,
+} from "../../Features/Account/accountSlice";
 import { init } from "../../Features/Game/wordSlice";
 import agent from "../api/agent";
 import { stringToNumberArray } from "../helper/helper";
 import { Cookies } from "react-cookie";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+import { toggleLoading } from "../../Features/Game/gameSlice";
 
 interface Word {
   letters: string;
@@ -19,22 +25,36 @@ interface Word {
 }
 
 function App() {
-  const game = useAppSelector((state) => state.game);
+  const [userId, setUserId] = useState("");
+  const darkMode = useAppSelector((state) => state.game.darkMode);
+  const account = useAppSelector((state) => state.account.username);
   const dispatch = useAppDispatch();
-  const colorMode = game.darkMode ? "dark" : "light";
+  const colorMode = darkMode ? "dark" : "light";
   const cookies = new Cookies();
-  const userId = cookies.get("userId");
+  const cookiesId = cookies.get("userId");
+
+  if (localStorage["user"]) {
+    const user = JSON.parse(localStorage["user"]);
+    dispatch(setUsername(user["username"]));
+  } else if (cookiesId != undefined) {
+    dispatch(setUsername(cookiesId));
+  }
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
-  }, [dispatch]);
-
-  useEffect(() => {
     async function initUser() {
-      try {
-        await agent.Guesses.userAttemptsToday(userId).then((data) => {
-          console.log(data);
+      if (account != null) {
+        setUserId(account);
+      } else {
+        return;
+      }
 
+      try {
+        dispatch(toggleLoading());
+        if (userId.length <= 0) {
+          return;
+        }
+        await agent.Guesses.userAttemptsToday(userId).then((data) => {
           const currentWordEn: number = data["attempt"];
           const currentWordBg: number = data["attemptBg"];
 
@@ -57,13 +77,14 @@ function App() {
               wordsBg,
             })
           );
+          dispatch(toggleLoading());
         });
       } catch (error) {
-        console.log(error);
+        dispatch(toggleLoading());
       }
     }
     initUser();
-  }, [dispatch, userId]);
+  }, [account, dispatch, userId]);
 
   const theme = createTheme({
     palette: {
@@ -103,6 +124,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer
+        limit={10}
+        position="top-center"
+        hideProgressBar
+        theme="colored"
+        autoClose={500}
+      />
       <CssBaseline enableColorScheme />
       <>
         <Statistics />

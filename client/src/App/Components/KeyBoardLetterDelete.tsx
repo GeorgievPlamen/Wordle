@@ -4,13 +4,13 @@ import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import { removeLetter, removeLetterBg } from "../../Features/Game/wordSlice";
 
 export default function KeyBoardLetterDelete() {
-  const game = useAppSelector((state) => state.game);
+  const game = useAppSelector((state) => state.game.bulgarian);
   const dispatch = useAppDispatch();
   return (
     <Box>
       <Button
         onClick={() =>
-          dispatch(game.bulgarian ? removeLetterBg() : removeLetter())
+          dispatch(game ? removeLetterBg() : removeLetter())
         }
         sx={{
           "&:hover": {

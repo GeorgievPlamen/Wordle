@@ -5,12 +5,14 @@ export interface GameState {
     initialized: boolean;
     darkMode: boolean;
     bulgarian: boolean;
+    loading: boolean;
 }
 
 const initialState: GameState = {
     initialized: false,
     darkMode: false,
-    bulgarian: false
+    bulgarian: false,
+    loading: false
 }
 
 export const gameSlice = createSlice({
@@ -25,8 +27,11 @@ export const gameSlice = createSlice({
         },
         initializeGame: (state) => {
             state.initialized = true;
+        },
+        toggleLoading: (state) => {
+            state.loading = !state.loading;
         }
     }
     })
 
-export const {toggleDarkMode, initializeGame,toggleLanguage} = gameSlice.actions;
+export const {toggleDarkMode, initializeGame,toggleLanguage,toggleLoading} = gameSlice.actions;

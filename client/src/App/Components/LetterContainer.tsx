@@ -9,7 +9,7 @@ interface Props {
 
 export default function LetterContainer({ letter, letterValue }: Props) {
   const [backgroundColor, setBackgroundColor] = useState("");
-  const game = useAppSelector((state) => state.game);
+  const game = useAppSelector((state) => state.game.bulgarian);
   const handleBackgroundColorChange = (color: string) => {
     setBackgroundColor(color);
   };
@@ -26,7 +26,7 @@ export default function LetterContainer({ letter, letterValue }: Props) {
     if (letterValue === 0) {
       handleBackgroundColorChange("#6aaa64");
     }
-  }, [game.bulgarian, letterValue]);
+  }, [game, letterValue]);
 
   return (
     <Box

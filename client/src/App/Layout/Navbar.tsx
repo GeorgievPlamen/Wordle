@@ -20,7 +20,7 @@ import { toggleDarkMode, toggleLanguage } from "../../Features/Game/gameSlice";
 import { logOut } from "../../Features/Account/accountSlice";
 
 export default function Navbar() {
-  const game = useAppSelector((state) => state.game);
+  const game = useAppSelector((state) => state.game.bulgarian);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ export default function Navbar() {
                   }}
                 >
                   <Typography textAlign="center">
-                    {game.bulgarian ? "Начало" : "Home"}
+                    {game ? "Начало" : "Home"}
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -95,7 +95,7 @@ export default function Navbar() {
                   }}
                 >
                   <Typography textAlign="center">
-                    {game.bulgarian ? "Оригинал" : "Original"}
+                    {game ? "Оригинал" : "Original"}
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -108,7 +108,7 @@ export default function Navbar() {
                   }}
                 >
                   <Typography textAlign="center">
-                    {game.bulgarian ? "Източник" : "Source"}
+                    {game ? "Източник" : "Source"}
                   </Typography>
                 </MenuItem>
                 {user === null ? (
@@ -119,7 +119,7 @@ export default function Navbar() {
                     }}
                   >
                     <Typography textAlign="center">
-                      {game.bulgarian ? "Влез" : "Log in"}
+                      {game ? "Влез" : "Log in"}
                     </Typography>
                   </MenuItem>
                 ) : (
@@ -130,7 +130,7 @@ export default function Navbar() {
                     }}
                   >
                     <Typography textAlign="center">
-                      {game.bulgarian ? "Излез" : "Log out"}
+                      {game ? "Излез" : "Log out"}
                     </Typography>
                   </MenuItem>
                 )}
@@ -165,7 +165,7 @@ export default function Navbar() {
                   variant="h5"
                   fontWeight={"bold"}
                 >
-                  {game.bulgarian ? "БГ" : "EN"}
+                  {game ? "БГ" : "EN"}
                 </Typography>
               </Button>
               <Button

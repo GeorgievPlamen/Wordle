@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gE4WLn8dB+LkhrLVh3w3kgjXmHcn+gx9nLXXPhDFRIW9DouvQk+hQPe4QUYzacQg0AWAWmWu48gNpBPgUk7bVQ==",
+  "dgSpecHash": "IhVNmfndn3GIbxLF22UImbL10rrEwMVkX62T3i57EiZRZo6rzC5N4QVpj1OlwVoRatu1WhJozBWXrI7ptn4+7Q==",
   "success": true,
-  "projectFilePath": "d:\\Projects\\Wordle\\Services\\Services.csproj",
+  "projectFilePath": "D:\\Projects\\Wordle\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.0\\microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",

@@ -8,13 +8,9 @@ namespace Services.Guesses
     public class FailedGuessService : IFailedGuess
     {
         private readonly WordleDbContext _context;
-        private readonly ILogger<SuccessfullGuessService> _logger;
-        public FailedGuessService(
-            WordleDbContext context,
-            ILogger<SuccessfullGuessService> logger)
+        public FailedGuessService(WordleDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<bool> FailedGuess(string userId, bool bulgarian)

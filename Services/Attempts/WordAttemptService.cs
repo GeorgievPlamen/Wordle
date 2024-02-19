@@ -1,6 +1,7 @@
 using Contracts;
 using Contracts.DTOs;
 using Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -34,13 +35,16 @@ namespace Services.Attempts
             else
             {
                 guess = currentUser;
-
             }
 
             guess.LastPlayed = DateTime.Today;
 
             if (bulgarian)
             {
+                if (guess.AttemptBg >= 6)
+                {
+                    return false;
+                }
                 guess.AttemptBg++;
                 switch (guess.AttemptBg)
                 {
@@ -66,6 +70,10 @@ namespace Services.Attempts
             }
             else
             {
+                if (guess.AttemptBg >= 6)
+                {
+                    return false;
+                }
                 guess.Attempt++;
                 switch (guess.Attempt)
                 {

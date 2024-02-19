@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../Store/configureStore";
 import agent from "../api/agent";
 import { completeWord, completeWordBg } from "../../Features/Game/wordSlice";
 import { addValue, addValueBg } from "../../Features/LettersGrid/lettersSlice";
+import { toast } from "react-toastify";
 
 interface Props {
   letters: string[];
@@ -14,12 +15,18 @@ export default function KeyBoardLetterEnter() {
   const currenWordBg = useAppSelector((state) => state.word.currentWordBg);
   const wordsEn = useAppSelector((state) => state.word.words);
   const wordsBg = useAppSelector((state) => state.word.wordsBg);
-  const game = useAppSelector((state) => state.game);
-  const words = game.bulgarian ? wordsBg : wordsEn;
+  const game = useAppSelector((state) => state.game.bulgarian);
+  const words = game ? wordsBg : wordsEn;
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
-    if (words[currenWordEn].letters.length === 5 && currenWordEn < 5) {
+    if (words[currenWordEn].letters.length < 5) {
+      toast.error("Not enought letters");
+    }
+    if (currenWordEn >= 6) {
+      toast.error("At max guesses");
+    }
+    if (words[currenWordEn].letters.length === 5 && currenWordEn < 6) {
       try {
         await agent.Word.checkEnWord(words[currenWordEn].letters).then(
           async (data: Props) => {
@@ -35,7 +42,9 @@ export default function KeyBoardLetterEnter() {
             dispatch(completeWord({ values: data.values }));
           }
         );
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.warning("Not in word list");
         console.log(error);
       }
     }
@@ -66,7 +75,7 @@ export default function KeyBoardLetterEnter() {
   return (
     <Box>
       <Button
-        onClick={game.bulgarian ? handleWordInputBg : handleWordInput}
+        onClick={game ? handleWordInputBg : handleWordInput}
         sx={{
           "&:hover": {
             backgroundColor: "#c3c6ca",

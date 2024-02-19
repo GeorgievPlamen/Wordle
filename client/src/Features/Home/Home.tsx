@@ -6,8 +6,8 @@ import { toggleDisplay } from "../HowToPlay/howToPlaySlice";
 import { logOut } from "../Account/accountSlice";
 
 export default function Home() {
-  const game = useAppSelector((state) => state.game);
-  const { user } = useAppSelector((state) => state.account);
+  const game = useAppSelector((state) => state.game.bulgarian);
+  const user = useAppSelector((state) => state.account.user);
   const nav = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -49,7 +49,7 @@ export default function Home() {
           }}
         >
           <Typography align="center" variant="h4">
-            {game.bulgarian
+            {game
               ? "Получи 6 шанса за да познаеш дума от 5 букви"
               : "Get 6 chances to guess a 5-letter word."}
           </Typography>
@@ -73,7 +73,7 @@ export default function Home() {
               color: "white",
             }}
           >
-            {game.bulgarian ? "Играй" : "Play"}
+            {game ? "Играй" : "Play"}
           </Button>
           {user === null ? (
             <Button
@@ -88,7 +88,7 @@ export default function Home() {
               }}
             >
               <Typography color={"textPrimary"} fontSize={"15px"}>
-                {game.bulgarian ? "Влез" : "Log in"}
+                {game ? "Влез" : "Log in"}
               </Typography>
             </Button>
           ) : (
@@ -104,7 +104,7 @@ export default function Home() {
               }}
             >
               <Typography color={"textPrimary"} fontSize={"15px"}>
-                {game.bulgarian ? "Излез" : "Log out"}
+                {game ? "Излез" : "Log out"}
               </Typography>
             </Button>
           )}
@@ -120,15 +120,13 @@ export default function Home() {
             }}
           >
             <Typography color={"textPrimary"} fontSize={"15px"}>
-              {game.bulgarian ? "Как се играе" : "How To Play"}
+              {game ? "Как се играе" : "How To Play"}
             </Typography>
           </Button>
         </Box>
         <Box justifySelf={"end"}>
           <Typography variant="h6">
-            {game.bulgarian
-              ? "Направено от Пламен Георгиев"
-              : "Made by Plamen Georgiev"}
+            {game ? "Направено от Пламен Георгиев" : "Made by Plamen Georgiev"}
           </Typography>
         </Box>
       </Box>

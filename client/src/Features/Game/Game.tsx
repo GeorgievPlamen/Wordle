@@ -9,6 +9,7 @@ import agent from "../../App/api/agent";
 import { addStats } from "../Statistics/statisticsSlice";
 import { Cookies } from "react-cookie";
 import KeyBoardBg from "../Keyboard/KeyBoardBg";
+import Loading from "../../App/Components/Loading";
 
 interface GuessesProps {
   first: number;
@@ -28,9 +29,11 @@ interface GuessesProps {
 }
 
 export default function Game() {
-  const game = useAppSelector((state) => state.game);
+  const bulgarian = useAppSelector((state) => state.game.bulgarian);
+  const loading = useAppSelector((state) => state.game.loading);
   const word = useAppSelector((state) => state.word);
   const wordCompleted = word.completed;
+  const wordCompletedBg = word.completedBg;
   const dispatch = useAppDispatch();
   const cookies = new Cookies();
   const userId = cookies.get("userId");
@@ -62,28 +65,34 @@ export default function Game() {
         console.log(error);
       }
     }
+    fetch();
 
     if (wordCompleted === true) {
       fetch();
-      setTimeout(() => {
-        alert("Splendid!");
-      }, 2000);
     }
-  }, [dispatch, wordCompleted, userId]);
+    if (wordCompletedBg === true) {
+      fetch();
+    }
+  }, [dispatch, userId, wordCompleted, wordCompletedBg]);
+
   return (
     <>
       <Navbar />
-      <Box
-        display={"flex"}
-        margin={"60px auto"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
-        <LettersGrid />
-        {game.bulgarian ? <KeyBoardBg /> : <KeyBoardEn />}
-        <TestGetWord />
-      </Box>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Box
+          display={"flex"}
+          margin={"60px auto"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <LettersGrid />
+          {bulgarian ? <KeyBoardBg /> : <KeyBoardEn />}
+          <TestGetWord />
+        </Box>
+      )}
     </>
   );
 }

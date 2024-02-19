@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { store } from "../Store/configureStore";
+import { toast } from "react-toastify";
 
 const sleep = () => new Promise (resolve => setTimeout(resolve,500));
 
@@ -10,13 +11,34 @@ const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.request.use(config => {
     const token = store.getState().account.user?.token;
-    if (token) config.headers.Authorization = `Beare ${token}`;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 })
 
 axios.interceptors.response.use( async response => {
     await sleep();
     return response;
+}, (error: AxiosError) => {
+    const {data, status} = error.response as AxiosResponse;
+    switch (status) {
+        case 400:
+            if(data.errors) {
+                const modelStateErrors: string[] = [];
+                for (const key in data.errors) {
+                    modelStateErrors.push(data.errors[key])
+                }
+                throw modelStateErrors.flat();
+            }
+            toast.error(data.title);
+            break;
+        case 401:
+            toast.error(data.title);
+            break;
+        case 500:
+            toast.error(data.title);
+            break;
+    }
+    return Promise.reject(error.response);
 })
 
 const requests = {

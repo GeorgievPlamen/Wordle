@@ -7,12 +7,12 @@ interface Props {
   letter: string;
 }
 export default function KeyBoardLetter({ letter }: Props) {
-  const game = useAppSelector((state) => state.game);
+  const game = useAppSelector((state) => state.game.bulgarian);
   const { completed, completedBg } = useAppSelector((state) => state.word);
-  const letterWidth = game.bulgarian ? "7vw" : "8vw";
+  const letterWidth = game ? "7vw" : "8vw";
   const { letters, lettersBg } = useAppSelector((state) => state.letters);
   const [letterValue, setLetterValue] = useState(
-    game.bulgarian ? lettersBg[letter].value : letters[letter].value
+    game ? lettersBg[letter].value : letters[letter].value
   );
   const [backgroundColor, setBackgroundColor] = useState("");
   const handleBackgroundColorChange = (color: string) => {
@@ -23,7 +23,7 @@ export default function KeyBoardLetter({ letter }: Props) {
     setLetterValue(
       letterValue -
         letterValue +
-        (game.bulgarian ? lettersBg[letter].value : letters[letter].value)
+        (game ? lettersBg[letter].value : letters[letter].value)
     );
     if (letterValue === 2) {
       handleBackgroundColorChange("#787c7e");
@@ -34,17 +34,17 @@ export default function KeyBoardLetter({ letter }: Props) {
     if (letterValue === 0) {
       handleBackgroundColorChange("#6aaa64");
     }
-  }, [game.bulgarian, letter, letterValue, letters, lettersBg]);
+  }, [game, letter, letterValue, letters, lettersBg]);
   return (
     <Box>
       <Button
         onClick={() => {
-          console.log(game.bulgarian + " bg " + completedBg);
-          console.log(game.bulgarian + " en " + completed);
-          if (game.bulgarian && completedBg || !game.bulgarian && completed) {
+          console.log(game + " bg " + completedBg);
+          console.log(game + " en " + completed);
+          if (game && completedBg || !game && completed) {
             return;
           } else {
-            dispatch(game.bulgarian ? addLetterBg(letter) : addLetter(letter));
+            dispatch(game ? addLetterBg(letter) : addLetter(letter));
           }
         }}
         sx={{

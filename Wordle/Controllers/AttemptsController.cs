@@ -1,6 +1,4 @@
 using Contracts;
-using Contracts.DTOs;
-using Contracts.Params;
 using Microsoft.AspNetCore.Mvc;
 using Wordle.Controllers.Base;
 
@@ -8,21 +6,13 @@ namespace Wordle.Controllers
 {
     public class AttemptsController : BaseController
     {
-        private readonly ILogger<AttemptsController> _logger;
         private readonly IWordAttempt _wordAttempt;
         private readonly ICurrentGuesses _currentGuesses;
 
         public AttemptsController(
-            ILogger<AttemptsController> logger,
-            IWordService wordService,
-            IWordChecker wordChecker,
-            IWordValid wordValid,
-            ISuccessfullGuess successfullGuess,
-            IFailedGuess failedGuess,
             IWordAttempt wordAttempt,
             ICurrentGuesses currentGuesses)
         {
-            _logger = logger;
             _wordAttempt = wordAttempt;
             _currentGuesses = currentGuesses;
         }

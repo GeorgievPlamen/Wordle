@@ -1,4 +1,3 @@
-using System.Globalization;
 using Contracts;
 using Contracts.DTOs;
 using Contracts.Params;
@@ -9,7 +8,6 @@ namespace Wordle.Controllers
 {
     public class WordController : BaseController
     {
-        private readonly ILogger<WordController> _logger;
         private readonly IWordService _wordService;
         private readonly IWordChecker _wordChecker;
         private readonly IWordValid _wordValid;
@@ -18,7 +16,6 @@ namespace Wordle.Controllers
         private readonly IWordAttempt _wordAttempt;
 
         public WordController(
-            ILogger<WordController> logger,
             IWordService wordService,
             IWordChecker wordChecker,
             IWordValid wordValid,
@@ -29,7 +26,6 @@ namespace Wordle.Controllers
             _wordService = wordService;
             _wordChecker = wordChecker;
             _wordValid = wordValid;
-            _logger = logger;
             _successfullGuess = successfullGuess;
             _failedGuess = failedGuess;
             _wordAttempt = wordAttempt;
@@ -52,46 +48,49 @@ namespace Wordle.Controllers
         [HttpGet("En/{word}")]
         public async Task<IActionResult> CheckWord(string word)
         {
-            if (!Request.Cookies.TryGetValue("userId", out string? userId))
+            var userId = User.Identity?.Name;
+            if (string.IsNullOrEmpty(userId))
             {
-                userId = CreateUserIdCookie();
+                if (Request.Cookies.TryGetValue("userId", out string? cookieUserId))
+                {
+                    userId = cookieUserId;
+                }
+                else
+                {
+                    userId = CreateUserIdCookie();
+                }
             }
 
+
+            //Is word in list?
             if (!await _wordValid.IsValid(word.ToLower(), false))
             {
                 return BadRequest("Word is not valid");
             }
 
-            if (Request.Cookies.TryGetValue("guesses", out string? guesses))
-            {
-                // if (Convert.ToInt32(guesses) == 6)
-                // {
-                // return BadRequest("Already at max guesses");
-                // }
-            }
-
-            // if (Request.Cookies.ContainsKey("guessedCorrectly"))
-            // {
-            //     return BadRequest("You have already guessed this word");
-            // }
-
+            //check if word is correct
             string wordToCheck = await _wordService.GetWord(Language.English);
             var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
 
-            //Prep for cookies
             string usedWord = "";
 
             usedWord = PrepWord(result, usedWord);
 
-            await _wordAttempt.AddWordAttempt(userId, usedWord, false);
+            var attempt = await _wordAttempt.AddWordAttempt(userId, usedWord, false);
+            var attemptDto = await _wordAttempt.GetAttempts(userId);
 
-            HandleGuessesCookie(guesses, userId);
+            //Failed
+            if (attemptDto.Attempt >= 6)
+            {
+                await _failedGuess.FailedGuess(userId, false);
+                return Ok(result);
+            }
 
             //Correct
             if (result != null && result.Values != null &&
             result.Values.All(x => x == 0))
             {
-                await HandleCorrect(guesses, false, userId);
+                await HandleCorrect(attemptDto, false, userId);
                 return Ok(result);
             }
 
@@ -112,20 +111,6 @@ namespace Wordle.Controllers
             {
                 return BadRequest("Word is not valid");
             }
-
-            if (Request.Cookies.TryGetValue("guessesBg", out string? guesses))
-            {
-                if (Convert.ToInt32(guesses) == 6)
-                {
-                    return BadRequest("Already at max guesses");
-                }
-            }
-
-            if (Request.Cookies.ContainsKey("guessedCorrectlyBg"))
-            {
-                return BadRequest("You have already guessed this word");
-            }
-
             string wordToCheck = await _wordService.GetWord(Language.Bulgarian);
             var result = _wordChecker.CheckWord(wordToCheck, word.ToUpper());
 
@@ -134,13 +119,20 @@ namespace Wordle.Controllers
             usedWord = PrepWord(result, usedWord);
 
             await _wordAttempt.AddWordAttempt(userId, usedWord, true);
+            var attemptDto = await _wordAttempt.GetAttempts(userId);
 
-            HandleGuessesCookie(guesses, userId, true);
+            //Handle failure
+            if (attemptDto.AttemptBg >= 6)
+            {
+                await _failedGuess.FailedGuess(userId, true);
+                return Ok(result);
+            }
 
+            //Handle Correct
             if (result != null && result.Values != null &&
             result.Values.All(x => x == 0))
             {
-                await HandleCorrect(guesses, true, userId);
+                await HandleCorrect(attemptDto, true, userId);
                 return Ok(result);
             }
 
@@ -154,19 +146,15 @@ namespace Wordle.Controllers
             return userId;
         }
 
-        private async Task HandleCorrect(string? guesses, bool bulgarian, string userId)
+        private async Task HandleCorrect(AttemptsDTO attempt, bool bulgarian, string userId)
         {
-            int attempt = Convert.ToInt32(guesses) + 1;
-
             if (bulgarian)
             {
-                await _successfullGuess.SuccessfullGuess(userId, attempt, true);
-                Response.Cookies.Append("guessedCorrectlyBg", "yes", new CookieOptions { Expires = DateTime.Today.AddDays(1) });
+                await _successfullGuess.SuccessfullGuess(userId, attempt.AttemptBg, true);
             }
             else
             {
-                await _successfullGuess.SuccessfullGuess(userId, attempt, false);
-                Response.Cookies.Append("guessedCorrectly", "yes", new CookieOptions { Expires = DateTime.Now.AddSeconds(60) });
+                await _successfullGuess.SuccessfullGuess(userId, attempt.Attempt, false);
             }
         }
         private static string PrepWord(WordDTO? result, string usedWord)
@@ -185,54 +173,6 @@ namespace Wordle.Controllers
             }
 
             return usedWord;
-        }
-        private void HandleGuessesCookie(string? guesses, string userId, bool Bulgarian = false)
-        {
-            var cookieOpt = new CookieOptions { Expires = DateTime.Today.AddDays(1) };
-            if (!Request.Cookies.ContainsKey("guesses") || !Request.Cookies.ContainsKey("guessesBg"))
-            {
-                int guessTries = 0;
-                Response.Cookies.Append("guesses", guessTries.ToString(), cookieOpt);
-                Response.Cookies.Append("guessesBg", guessTries.ToString(), cookieOpt);
-            }
-            int currentGuess = Convert.ToInt32(guesses);
-            currentGuess++;
-            if (!Bulgarian)
-            {
-                Response.Cookies.Delete("guesses");
-                Response.Cookies.Append("guesses", currentGuess.ToString(), cookieOpt);
-                if (currentGuess == 6)
-                {
-                    HandleFailureToGuess(userId, Bulgarian);
-                }
-            }
-            else
-            {
-                Response.Cookies.Delete("guessesBg");
-                Response.Cookies.Append("guessesBg", currentGuess.ToString(), cookieOpt);
-                if (currentGuess == 6)
-                {
-                    HandleFailureToGuess(userId, Bulgarian);
-                }
-            }
-        }
-
-        private async void HandleFailureToGuess(string userId, bool bulgarian)
-        {
-            string? cookieKey = "guessesFailed";
-            if (bulgarian) cookieKey += "Bg";
-            if (Request.Cookies.TryGetValue(cookieKey, out string? timesFailed))
-            {
-                int currentFailed = Convert.ToInt32(timesFailed) + 1;
-                Response.Cookies.Append(cookieKey, currentFailed.ToString(),
-                     new CookieOptions { Expires = DateTime.Today.AddDays(30) });
-            }
-            else
-            {
-                Response.Cookies.Append(cookieKey, "1",
-                     new CookieOptions { Expires = DateTime.Today.AddDays(30) });
-            }
-            await _failedGuess.FailedGuess(userId, bulgarian);
         }
     }
 }

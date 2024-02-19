@@ -8,10 +8,12 @@ import { router } from "../../App/Routes/routes";
 
 export interface AccountState {
     user: User | null;
+    username: string | null;
 }
 
 const initialState: AccountState = {
-    user: null
+    user: null,
+    username: null
 }
 
 export const signInUser = createAsyncThunk<User, FieldValues>(
@@ -36,6 +38,7 @@ export const fetchCurrentUser = createAsyncThunk<User>(
             localStorage.setItem("user", JSON.stringify(user));
             return user;
         } catch (error: any) {
+            console.log("getting error when waiting for agent" + error)
             return  thunkAPI.rejectWithValue({error: error.data})
         }
     },{
@@ -56,11 +59,15 @@ export const accountSlice = createSlice({
         },
         setUser: (state, action) => {
             state.user = action.payload;
+        },
+        setUsername: (state, action) => {
+            state.username = action.payload;
         }
     },
     extraReducers: (builder => {
         builder.addCase(fetchCurrentUser.rejected, (state) => {
             state.user = null;
+            state.username = null;
             localStorage.removeItem("user");
             router.navigate("/");
         })
@@ -77,4 +84,4 @@ export const accountSlice = createSlice({
     })
 })
 
-export const {logOut,setUser} = accountSlice.actions;
+export const {logOut,setUser, setUsername} = accountSlice.actions;
