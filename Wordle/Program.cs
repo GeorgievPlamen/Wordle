@@ -1,62 +1,21 @@
-using System.Text;
-using Contracts;
 using Entities;
 using Entities.DBInit;
 using Entities.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Services.Attempts;
-using Services.Guesses;
-using Services.JWT;
-using Services.Words;
+using Wordle.Extensions;
 using Wordle.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WordleDbContext>(options =>
     {
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 );
-builder.Services.AddScoped<IWordService, WordService>();
-builder.Services.AddScoped<IWordChecker, WordCheckerService>();
-builder.Services.AddScoped<IWordValid, WordValidService>();
-builder.Services.AddScoped<ISuccessfullGuess, SuccessfullGuessService>();
-builder.Services.AddScoped<IFailedGuess, FailedGuessService>();
-builder.Services.AddScoped<ICurrentGuesses, CurrentGuessesService>();
-builder.Services.AddScoped<IWordAttempt, WordAttemptService>();
-builder.Services.AddScoped<ITokenJWT, TokenJWTService>();
-builder.Services.AddIdentityCore<User>(opt =>
-{
-    opt.User.RequireUniqueEmail = true;
-})
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<WordleDbContext>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(opt =>
-    {
-        opt.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    builder.Configuration["JWTSettings:TokenKey"] ??
-                    throw new ArgumentNullException("No signing key found")
-                )
-            )
-        };
-    });
-builder.Services.AddAuthorization();
-builder.Services.AddMemoryCache();
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 

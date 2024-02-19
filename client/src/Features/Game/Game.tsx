@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { useEffect } from "react";
-import TestGetWord from "../../App/Components/TestGetWord";
 import { useAppDispatch, useAppSelector } from "../../App/Store/configureStore";
 import KeyBoardEn from "../Keyboard/KeyBoardEn";
 import LettersGrid from "../LettersGrid/LettersGrid";
@@ -90,7 +89,6 @@ export default function Game() {
         >
           <LettersGrid />
           {bulgarian ? <KeyBoardBg /> : <KeyBoardEn />}
-          <TestGetWord />
         </Box>
       )}
     </>
