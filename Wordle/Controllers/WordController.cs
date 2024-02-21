@@ -79,6 +79,7 @@ namespace Wordle.Controllers
             var attempt = await _wordAttempt.AddWordAttempt(userId, usedWord, false);
             var attemptDto = await _wordAttempt.GetAttempts(userId);
 
+            
             //Failed
             if (attemptDto.Attempt >= 6)
             {
@@ -95,6 +96,8 @@ namespace Wordle.Controllers
 
                 return Ok(failed);
             }
+
+            
 
             //Correct
             if (result != null && result.Values != null &&

@@ -46,7 +46,7 @@ namespace Wordle.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(
-                                config["JWTSettings:TokenKey"] ??
+                                config["TokenKey"] ??
                                 throw new ArgumentNullException("No signing key found")
                             )
                         )

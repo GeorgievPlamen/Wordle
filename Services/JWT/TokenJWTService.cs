@@ -42,7 +42,7 @@ namespace Services.JWT
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var tokenKey = _config["JWTSettings:TokenKey"];
+            var tokenKey = _config["TokenKey"];
 
             if (tokenKey == null)
             {

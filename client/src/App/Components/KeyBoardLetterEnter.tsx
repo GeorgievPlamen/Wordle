@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import { completeWord, completeWordBg } from "../../Features/Game/wordSlice";
 import { addValue, addValueBg } from "../../Features/LettersGrid/lettersSlice";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface Props {
   letters: string[];
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function KeyBoardLetterEnter() {
+  const [loading, setLoading] = useState(false);
   const currenWordEn = useAppSelector((state) => state.word.currentWordEn);
   const currenWordBg = useAppSelector((state) => state.word.currentWordBg);
   const wordsEn = useAppSelector((state) => state.word.words);
@@ -22,15 +24,22 @@ export default function KeyBoardLetterEnter() {
   const dispatch = useAppDispatch();
 
   const handleWordInput = async () => {
-    console.log(currenWordEn);
     if (words[currenWordEn].letters.length < 5) {
       toast.error("Not enought letters");
+      return;
     }
     if (currenWordEn >= 6) {
       toast.error("At max guesses");
+      return;
+    }
+    if (loading) {
+      toast.warning("Loading...");
+      return;
     }
     if (words[currenWordEn].letters.length === 5 && currenWordEn < 6) {
       try {
+        console.log(currenWordEn);
+        setLoading(true);
         await agent.Word.checkEnWord(words[currenWordEn].letters).then(
           async (data: Props) => {
             for (let i = 0; i < 5; i++) {
@@ -43,13 +52,15 @@ export default function KeyBoardLetterEnter() {
               );
             }
             dispatch(completeWord({ values: data.values }));
-            if (data.wordTodayBg != null && data.wordTodayBg != undefined) {
-              toast.info(data.wordTodayBg);
+            if (data.wordToday != null && data.wordToday != undefined) {
+              toast.info(data.wordToday);
             }
+            setLoading(false);
           }
         );
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
+        setLoading(false);
         toast.warning("Not in word list");
         console.log(error);
       }
@@ -59,6 +70,8 @@ export default function KeyBoardLetterEnter() {
   const handleWordInputBg = async () => {
     if (words[currenWordBg].letters.length === 5 && currenWordBg < 6) {
       try {
+        setLoading(true);
+
         await agent.Word.checkBgWord(words[currenWordBg].letters).then(
           async (data: Props) => {
             for (let i = 0; i < 5; i++) {
@@ -74,9 +87,11 @@ export default function KeyBoardLetterEnter() {
             if (data.wordTodayBg != null && data.wordTodayBg != undefined) {
               toast.info(data.wordTodayBg);
             }
+            setLoading(false);
           }
         );
       } catch (error) {
+        setLoading(false);
         toast.warning("Не е в списъка с думи");
         console.log(error);
       }

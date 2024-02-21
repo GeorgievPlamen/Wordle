@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XKGLCbfBzEM8ncGumM135VBvntLQcRHSu5/Of64K/r0=",
+  "Hash": "Sn+ZUpJJt402jadJrGgAbKsg+ZvrpIWtkwIj7Qrt1Ms=",
   "Source": "Wordle",
   "BasePath": "_content/Wordle",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\assets\\index-1c5DauVR.js",
+      "SourceId": "Wordle",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\",
+      "BasePath": "_content/Wordle",
+      "RelativePath": "assets/index-1c5DauVR.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\index-1c5DauVR.js"
+    },
     {
       "Identity": "D:\\Projects\\Wordle\\Wordle\\wwwroot\\assets\\index-3ofpnfr5.js",
       "SourceId": "Wordle",

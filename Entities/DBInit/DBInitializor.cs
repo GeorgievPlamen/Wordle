@@ -31,7 +31,7 @@ namespace Entities.DBInit
 
             if (context.WordsBg.Any() && context.WordsEn.Any()) return;
 
-            using (var sr = new StreamReader("../Wordle/wwwroot/dictBg.txt"))
+            using (var sr = new StreamReader("wwwroot/dict/dictBg.txt"))
             {
                 var words = sr.ReadToEnd().Split(",");
                 foreach (var word in words)
@@ -39,7 +39,7 @@ namespace Entities.DBInit
                     context.WordsBg.Add(new WordBg { Value = word });
                 }
             }
-            using (var sr = new StreamReader("../Wordle/wwwroot/dictEn.txt"))
+            using (var sr = new StreamReader("wwwroot/dict/dictEn.txt"))
             {
                 var words = sr.ReadToEnd().Split(",");
                 foreach (var word in words)

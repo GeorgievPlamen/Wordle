@@ -9,6 +9,7 @@ import { addStats } from "../Statistics/statisticsSlice";
 import { Cookies } from "react-cookie";
 import KeyBoardBg from "../Keyboard/KeyBoardBg";
 import Loading from "../../App/Components/Loading";
+import { toast } from "react-toastify";
 
 interface GuessesProps {
   first: number;
@@ -68,8 +69,12 @@ export default function Game() {
 
     if (wordCompleted === true) {
       fetch();
+      setTimeout(() => {
+        toast.success("Superb!");
+      }, 800);
     }
     if (wordCompletedBg === true) {
+      toast.success("Превъзходно!");
       fetch();
     }
   }, [dispatch, userId, wordCompleted, wordCompletedBg]);
