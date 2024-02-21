@@ -24,6 +24,8 @@ namespace Services.Words
         }
         public async Task<string> GetWord(Language language)
         {
+            //TODO Remove cache, its not working on fly.io, Try adding word to DB
+
             string? output = null;
             if (language == Language.English)
             {
