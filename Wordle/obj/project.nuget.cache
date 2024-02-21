@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YtcaaoTpkAHdDmM3UJegKHfoM42RaDuVUfH9NvVrtHa9XUTV08+iZKJK+DjCGVKxSxjq1sFIvY7UHleG8J5tXw==",
+  "dgSpecHash": "5y5982ZcviEEHDU/FlSqJLG8AmnheqkW4ny8eIrlwxtQAwrrqHugVEGZ1ddevSVeDq34saIV2qm0qNyrz2njwQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Wordle\\Wordle\\Wordle.csproj",
+  "projectFilePath": "D:\\Projects\\Wordle\\wordle\\Wordle.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GRIGS\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\GRIGS\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.0\\microsoft.aspnetcore.authentication.jwtbearer.7.0.0.nupkg.sha512",

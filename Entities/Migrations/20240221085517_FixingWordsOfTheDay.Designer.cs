@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(WordleDbContext))]
-    [Migration("20240219164037_PosgresInitial")]
-    partial class PosgresInitial
+    [Migration("20240221085517_FixingWordsOfTheDay")]
+    partial class FixingWordsOfTheDay
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,6 +240,28 @@ namespace Entities.Migrations
                     b.ToTable("WordsEn");
                 });
 
+            modelBuilder.Entity("Entities.WordsOfTheDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BgWord")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EnWord")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastPlayed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WordsOfTheDay");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -268,13 +290,13 @@ namespace Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1ec9d934-a86a-4171-96c2-ea80e88fa34c",
+                            Id = "90c9fa01-bb85-4e14-ad3c-9aa84bb62355",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "fb29b200-4cab-4850-8935-3d6311e45e78",
+                            Id = "1435b84b-5e25-4328-bf7b-6da78f8a5c44",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

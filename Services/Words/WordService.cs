@@ -11,55 +11,53 @@ namespace Services.Words
     {
         private readonly WordleDbContext _context;
         private readonly ILogger<WordService> _logger;
-        private readonly IMemoryCache _cache;
 
         public WordService(
             WordleDbContext context,
-            ILogger<WordService> logger,
-            IMemoryCache cache)
+            ILogger<WordService> logger)
         {
             _logger = logger;
-            _cache = cache;
             _context = context;
         }
         public async Task<string> GetWord(Language language)
         {
             //TODO Remove cache, its not working on fly.io, Try adding word to DB
-
+            //Check last played date, if its not today
+            //get a new word and set it for today
+            //if it is, just get the current word
             string? output = null;
+            DateTime today = DateTime.Today.ToUniversalTime();
+            var wordsToday = _context.WordsOfTheDay
+                .Where(x => x.LastPlayed >= today && x.LastPlayed < today.AddDays(1))
+                .FirstOrDefault();
+            if (wordsToday == null)
+            {
+                int randomIdEn = new Random().Next(1, _context.WordsEn.Count());
+                var resultEn = await _context.WordsEn.Where(x => x.Id == randomIdEn).FirstOrDefaultAsync();
+                int randomIdBg = new Random().Next(1, _context.WordsBg.Count());
+                var resultBg = await _context.WordsBg.Where(x => x.Id == randomIdBg).FirstOrDefaultAsync();
+                if (resultEn == null || resultEn.Value == null || resultBg == null || resultBg.Value == null)
+                {
+                    _logger.LogError("Word is not found ");
+                    throw new ArgumentNullException("Word is not found");
+                }
+                wordsToday = new WordsOfTheDay
+                {
+                    LastPlayed = DateTime.Today.ToUniversalTime(),
+                    EnWord = resultEn.Value.ToUpper(),
+                    BgWord = resultBg.Value.ToUpper()
+                };
+                await _context.WordsOfTheDay.AddAsync(wordsToday);
+                await _context.SaveChangesAsync();
+            }
+
             if (language == Language.English)
             {
-                output = _cache.Get<string>("WordEn");
-                if (output == null)
-                {
-                    int randomId = new Random().Next(1, _context.WordsEn.Count());
-                    var result = await _context.WordsEn.Where(x => x.Id == randomId).FirstOrDefaultAsync();
-                    if (result == null || result.Value == null)
-                    {
-                        _logger.LogError("Word is not found ");
-                        throw new ArgumentNullException(nameof(result));
-                    }
-                    output = result.Value.ToUpper();
-                    var endOfDay = DateTime.Today.AddDays(1).ToUniversalTime();
-                    _cache.Set("WordEn", output, endOfDay);
-                }
+                output = wordsToday.EnWord;
             }
             else if (language == Language.Bulgarian)
             {
-                output = _cache.Get<string>("WordBg");
-                if (output == null)
-                {
-                    int randomId = new Random().Next(1, _context.WordsBg.Count());
-                    var result = await _context.WordsBg.Where(x => x.Id == randomId).FirstOrDefaultAsync();
-                    if (result == null || result.Value == null)
-                    {
-                        _logger.LogError("Word is not found ");
-                        throw new ArgumentNullException(nameof(result));
-                    }
-                    output = result.Value;
-                    var endOfDay = DateTime.Today.AddDays(1).ToUniversalTime();
-                    _cache.Set("WordBg", output, endOfDay);
-                }
+                output = wordsToday.BgWord;
             }
             if (output == null) throw new ArgumentNullException("Can't get a word from DB or Cache");
             return output;

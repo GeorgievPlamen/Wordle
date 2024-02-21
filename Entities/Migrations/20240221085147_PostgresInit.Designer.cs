@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(WordleDbContext))]
-    [Migration("20240219183316_FixedDateTimceToUTC")]
-    partial class FixedDateTimceToUTC
+    [Migration("20240221085147_PostgresInit")]
+    partial class PostgresInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,13 +268,13 @@ namespace Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0e961b6f-7767-4069-b00d-db1400f9fe73",
+                            Id = "5d961abc-7530-4dee-b0c5-7255db6d1cac",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "a883dadc-15a2-4231-8a1a-fd5702a6e45f",
+                            Id = "43400c3d-aef0-44c9-b10f-cdea570313bf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

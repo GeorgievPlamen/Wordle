@@ -15,6 +15,7 @@ namespace Entities
         public DbSet<WordEn> WordsEn { get; set; }
         public DbSet<GuessesEn> GuessesEn { get; set; }
         public DbSet<GuessesToday> GuessesToday { get; set; }
+        public DbSet<WordsOfTheDay> WordsOfTheDay { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
