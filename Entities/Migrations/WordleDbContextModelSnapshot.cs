@@ -237,6 +237,28 @@ namespace Entities.Migrations
                     b.ToTable("WordsEn");
                 });
 
+            modelBuilder.Entity("Entities.WordsOfTheDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BgWord")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EnWord")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastPlayed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WordsOfTheDay");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -265,13 +287,13 @@ namespace Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0e961b6f-7767-4069-b00d-db1400f9fe73",
+                            Id = "90c9fa01-bb85-4e14-ad3c-9aa84bb62355",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "a883dadc-15a2-4231-8a1a-fd5702a6e45f",
+                            Id = "1435b84b-5e25-4328-bf7b-6da78f8a5c44",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
