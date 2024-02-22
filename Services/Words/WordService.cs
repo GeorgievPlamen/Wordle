@@ -21,10 +21,6 @@ namespace Services.Words
         }
         public async Task<string> GetWord(Language language)
         {
-            //TODO Remove cache, its not working on fly.io, Try adding word to DB
-            //Check last played date, if its not today
-            //get a new word and set it for today
-            //if it is, just get the current word
             string? output = null;
             DateTime today = DateTime.Today.ToUniversalTime();
             var wordsToday = _context.WordsOfTheDay

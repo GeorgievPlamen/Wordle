@@ -68,6 +68,18 @@ export default function KeyBoardLetterEnter() {
   };
 
   const handleWordInputBg = async () => {
+    if (words[currenWordBg].letters.length < 5) {
+      toast.error("Няма достатъчно букви!");
+      return;
+    }
+    if (currenWordEn >= 6) {
+      toast.error("Максимум опита достигнати.");
+      return;
+    }
+    if (loading) {
+      toast.warning("Зарежда...");
+      return;
+    }
     if (words[currenWordBg].letters.length === 5 && currenWordBg < 6) {
       try {
         setLoading(true);
