@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mywordle on 2024-02-19T22:50:14+02:00
+# fly.toml app configuration file generated for mywordle on 2024-02-21T12:38:29+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -10,8 +10,7 @@ primary_region = 'cdg'
   image = 'georgievp/wordle:latest'
 
 [env]
-  ASPNETCORE_URLS="http://+:8080"
-  
+  ASPNETCORE_URLS = 'http://+:8080'
 
 [http_service]
   internal_port = 8080
